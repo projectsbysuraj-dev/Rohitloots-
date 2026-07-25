@@ -1,0 +1,95 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  body {
+    font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Custom Color Theme Utilities inspired by India's Tricolor */
+:root {
+  --saffron: #FF8C00;
+  --saffron-dark: #E07B00;
+  --saffron-light: #FFF7ED;
+  --saffron-gradient: linear-gradient(135deg, #FF9900 0%, #FF6B00 100%);
+  --green-tricolor: #138808;
+  --green-light: #F0FDF4;
+  --blue-tricolor: #0A66C2;
+  --blue-light: #F0F9FF;
+}
+
+/* Glassmorphism effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Soft shadows and gradients */
+.shadow-soft {
+  box-shadow: 0 10px 25px -5px rgba(255, 140, 0, 0.12), 0 8px 10px -6px rgba(10, 102, 194, 0.08);
+}
+
+.shadow-card {
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+}
+
+.btn-saffron-gradient {
+  background: linear-gradient(135deg, #FF8C00 0%, #FF5500 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px 0 rgba(255, 120, 0, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-saffron-gradient:hover {
+  background: linear-gradient(135deg, #FFA01A 0%, #FF661A 100%);
+  box-shadow: 0 6px 20px 0 rgba(255, 120, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-saffron-gradient:active {
+  transform: translateY(0);
+}
+
+.tricolor-border {
+  border-image: linear-gradient(to right, #FF8C00, #0A66C2, #138808) 1;
+}
+
+.tricolor-glow {
+  box-shadow: 0 0 25px -5px rgba(255, 140, 0, 0.25), 0 0 25px -5px rgba(19, 136, 8, 0.2);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Mobile tap feedback */
+.active-scale:active {
+  transform: scale(0.97);
+}
