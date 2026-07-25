@@ -4,17 +4,11 @@ import {
   LayoutDashboard, 
   Smartphone, 
   Layers, 
-  Users, 
-  BarChart3, 
   Send, 
-  Gift, 
-  FileText, 
   Settings, 
   LogOut, 
   Menu, 
   X, 
-  ChevronRight, 
-  Sparkles,
   ArrowLeft,
   ShieldCheck
 } from 'lucide-react';
@@ -32,13 +26,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, currentTab, 
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, badge: 'Live' },
-    { id: 'apps', label: 'Applications', icon: Smartphone },
+    { id: 'apps', label: 'Manage Applications', icon: Smartphone },
     { id: 'categories', label: 'Categories', icon: Layers },
-    { id: 'users', label: 'Users', icon: Users, badge: 'New' },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'telegram', label: 'Telegram Popup', icon: Send },
-    { id: 'rewards', label: 'Rewards & Claims', icon: Gift },
-    { id: 'reports', label: 'Reports', icon: FileText },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 

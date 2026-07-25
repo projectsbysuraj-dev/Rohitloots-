@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { cleanImageUrl, FALLBACK_APP_LOGO } from '../utils/imageUtils';
-import { X, Gift, ExternalLink, CheckCircle2, Clock, ShieldCheck, FileText, ChevronRight, Award } from 'lucide-react';
+import { X, Gift, ExternalLink, CheckCircle2, ShieldCheck, FileText, ChevronRight, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
 
@@ -91,7 +91,7 @@ export const ClaimBottomSheet: React.FC = () => {
           {/* Sheet Body Scrollable Content */}
           <div className="p-4 sm:p-6 space-y-6 overflow-y-auto flex-1 text-slate-800">
             {/* Quick Meta Stats Row */}
-            <div className="grid grid-cols-3 gap-2 p-3 bg-slate-50 rounded-2xl text-center border border-slate-100">
+            <div className="grid grid-cols-2 gap-2 p-3 bg-slate-50 rounded-2xl text-center border border-slate-100">
               <div>
                 <span className="block text-[10px] text-slate-400 font-medium">Rating</span>
                 <span className="text-xs font-bold text-slate-800 flex items-center justify-center gap-1 mt-0.5">
@@ -99,14 +99,7 @@ export const ClaimBottomSheet: React.FC = () => {
                   {selectedAppForClaim.rating || 4.8}/5
                 </span>
               </div>
-              <div className="border-x border-slate-200">
-                <span className="block text-[10px] text-slate-400 font-medium">Est. Time</span>
-                <span className="text-xs font-bold text-slate-800 flex items-center justify-center gap-1 mt-0.5">
-                  <Clock className="w-3.5 h-3.5 text-sky-600" />
-                  {selectedAppForClaim.estimatedTime || '3-5 Mins'}
-                </span>
-              </div>
-              <div>
+              <div className="border-l border-slate-200">
                 <span className="block text-[10px] text-slate-400 font-medium">Total Claims</span>
                 <span className="text-xs font-bold text-emerald-600 mt-0.5 block">
                   {selectedAppForClaim.totalClaims.toLocaleString()}+ Users
@@ -179,16 +172,17 @@ export const ClaimBottomSheet: React.FC = () => {
           </div>
 
           {/* Sticky Footer Open Website Button */}
-          <div className="p-4 bg-white border-t border-slate-100">
+          <div className="p-4 sm:p-5 bg-white border-t border-slate-100 shadow-2xl">
             <button
               onClick={handleOpenReferralWebsite}
-              className="w-full py-3.5 px-6 rounded-2xl btn-saffron-gradient text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg cursor-pointer group"
+              className="w-full py-4 px-6 rounded-2xl btn-saffron-gradient text-white font-black text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-orange-500/25 hover:scale-[1.01] active:scale-95 transition-all cursor-pointer group"
             >
+              <Gift className="w-5 h-5 text-white shrink-0" />
               <span>Open Website & Claim ₹{selectedAppForClaim.rewardAmount}</span>
-              <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform shrink-0" />
             </button>
             <p className="text-[11px] text-center text-slate-400 mt-2 font-medium">
-              🔒 100% Secure Referral Link provided by Rohit Loots
+              🔒 100% Verified Referral Link • Direct Cashback Guarantee
             </p>
           </div>
         </motion.div>

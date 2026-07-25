@@ -15,10 +15,7 @@ import { cleanImageUrl, FALLBACK_APP_LOGO } from './utils/imageUtils';
 import { AdminLayout } from './components/admin/AdminLayout';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AdminAppsManager } from './components/admin/AdminAppsManager';
-import { AdminUserManagement } from './components/admin/AdminUserManagement';
 import { AdminTelegramManager } from './components/admin/AdminTelegramManager';
-import { AdminAnalytics } from './components/admin/AdminAnalytics';
-import { AdminRewards } from './components/admin/AdminRewards';
 import { AdminSettings } from './components/admin/AdminSettings';
 
 import { Sparkles, Send, Shield, Gift, Zap, TrendingUp, Award, Clock, ArrowRight, CheckCircle2, Search } from 'lucide-react';
@@ -53,11 +50,7 @@ function AppContent() {
         {adminTab === 'dashboard' && <AdminDashboard />}
         {adminTab === 'apps' && <AdminAppsManager />}
         {adminTab === 'categories' && <AdminAppsManager />}
-        {adminTab === 'users' && <AdminUserManagement />}
-        {adminTab === 'analytics' && <AdminAnalytics />}
         {adminTab === 'telegram' && <AdminTelegramManager />}
-        {adminTab === 'rewards' && <AdminRewards />}
-        {adminTab === 'reports' && <AdminRewards />}
         {adminTab === 'settings' && <AdminSettings />}
       </AdminLayout>
     );
@@ -161,34 +154,34 @@ function AppContent() {
           /* Home Screen Main Content */
           <>
             {/* Hero Banner Section with Tricolor Ambient Accents */}
-            <div className="relative rounded-xl overflow-hidden bg-slate-900 text-white p-3 sm:p-4 shadow-lg border border-slate-800 my-2">
+            <div className="relative rounded-3xl overflow-hidden bg-slate-900 text-white p-6 sm:p-7 md:p-8 shadow-2xl border border-slate-800/80 my-4 sm:my-5">
               {/* Abstract Tricolor Background Glows */}
-              <div className="absolute top-0 left-0 w-36 h-36 bg-[#FF8C00]/20 rounded-full blur-[50px] pointer-events-none" />
-              <div className="absolute bottom-0 right-0 w-36 h-36 bg-[#138808]/15 rounded-full blur-[50px] pointer-events-none" />
+              <div className="absolute top-0 left-0 w-56 h-56 bg-[#FF8C00]/20 rounded-full blur-[60px] pointer-events-none" />
+              <div className="absolute bottom-0 right-0 w-56 h-56 bg-[#138808]/15 rounded-full blur-[60px] pointer-events-none" />
 
-              <div className="relative z-10 space-y-2">
-                <div className="flex flex-wrap items-center justify-between gap-1">
-                  <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+              <div className="relative z-10 space-y-3.5 sm:space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                     Best Buy Sell Applications
                   </h1>
-                  <span className="text-xs sm:text-sm font-bold text-[#FF8C00]">
+                  <span className="text-sm sm:text-base font-bold text-[#FF8C00] bg-[#FF8C00]/10 px-3 py-1 rounded-full border border-[#FF8C00]/20">
                     ★ Instant Cashback & Rewards
                   </span>
                 </div>
 
                 {/* Half & Half Row */}
-                <div className="flex items-center gap-2 pt-0.5">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1.5">
                   <button
                     onClick={() => toggleTelegramModal(true)}
-                    className="flex-1 py-1.5 px-2.5 rounded-lg bg-[#0A66C2] hover:bg-[#08529c] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm shadow-sky-500/20 transition-all cursor-pointer whitespace-nowrap overflow-hidden"
+                    className="flex-1 py-3.5 px-6 rounded-2xl bg-[#0A66C2] hover:bg-[#08529c] hover:scale-[1.02] text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-sky-500/25 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
                   >
-                    <Send className="w-3.5 h-3.5 shrink-0" />
-                    <span className="truncate">Join Telegram</span>
+                    <Send className="w-5 h-5 shrink-0" />
+                    <span>Join Telegram</span>
                   </button>
 
-                  <div className="flex-1 py-1.5 px-2.5 rounded-lg bg-white/10 border border-white/15 backdrop-blur-md flex items-center justify-center gap-1.5 text-xs font-bold text-[#FF8C00] whitespace-nowrap overflow-hidden">
-                    <Sparkles className="w-3.5 h-3.5 text-[#FF8C00] shrink-0" />
-                    <span className="truncate">100% Direct Payouts</span>
+                  <div className="flex-1 py-3.5 px-6 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md flex items-center justify-center gap-2.5 text-sm sm:text-base font-extrabold text-[#FF8C00] whitespace-nowrap">
+                    <Sparkles className="w-5 h-5 text-[#FF8C00] shrink-0" />
+                    <span>100% Direct Payouts</span>
                   </div>
                 </div>
               </div>

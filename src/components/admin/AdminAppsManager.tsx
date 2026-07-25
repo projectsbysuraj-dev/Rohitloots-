@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { AppItem, AppCategory } from '../../types';
-import { cleanImageUrl, isImgBbViewerUrl, FALLBACK_APP_LOGO } from '../../utils/imageUtils';
+import { cleanImageUrl, FALLBACK_APP_LOGO } from '../../utils/imageUtils';
 import { uploadToFirebaseStorage } from '../../lib/firebase';
 import { 
   Plus, 
@@ -19,7 +19,8 @@ import {
   ShieldCheck,
   FileText,
   Upload,
-  Loader2
+  Loader2,
+  Image as ImageIcon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -42,7 +43,7 @@ export const AdminAppsManager: React.FC = () => {
       const firebaseUrl = await uploadToFirebaseStorage(file, 'app_logos');
       setFormData(prev => ({ ...prev, logo: firebaseUrl }));
     } catch (err) {
-      alert('Firebase Storage Image Upload Failed. Please check internet or use image URL.');
+      alert('Firebase Storage Image Upload Failed. Please check internet connection.');
     } finally {
       setIsUploadingLogo(false);
     }
@@ -256,7 +257,7 @@ export const AdminAppsManager: React.FC = () => {
                       </div>
                       <p className="font-bold text-white text-sm">Koi app nahi mila ya sare delete ho gaye hain</p>
                       <p className="text-slate-400 text-xs">
-                        Apne custom referral links, reward amounts aur ImgBB logo link ke sath naye apps add karne ke liye button par click karein.
+                        Apne custom referral links, reward amounts aur Firebase Storage logo ke sath naye apps add karne ke liye button par click karein.
                       </p>
                       <button
                         onClick={handleOpenAddModal}
@@ -400,28 +401,15 @@ export const AdminAppsManager: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-semibold text-slate-300 mb-1">Reward Amount (₹)</label>
-                    <input
-                      type="number"
-                      required
-                      value={formData.rewardAmount}
-                      onChange={e => setFormData({ ...formData, rewardAmount: Number(e.target.value) })}
-                      className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-semibold text-slate-300 mb-1">Estimated Time</label>
-                    <input
-                      type="text"
-                      value={formData.estimatedTime}
-                      onChange={e => setFormData({ ...formData, estimatedTime: e.target.value })}
-                      placeholder="e.g. 3 - 5 Minutes"
-                      className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
-                    />
-                  </div>
+                <div>
+                  <label className="block font-semibold text-slate-300 mb-1">Reward Amount (₹)</label>
+                  <input
+                    type="number"
+                    required
+                    value={formData.rewardAmount}
+                    onChange={e => setFormData({ ...formData, rewardAmount: Number(e.target.value) })}
+                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
+                  />
                 </div>
 
                 <div>
@@ -437,70 +425,97 @@ export const AdminAppsManager: React.FC = () => {
                 </div>
 
                 <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="block font-semibold text-slate-300">
-                      App Logo Image (Firebase Storage / URL)
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block font-semibold text-slate-300 text-xs">
+                      App Logo (Select from Gallery or Paste URL)
                     </label>
-                    <span className="text-[10px] text-amber-400 font-medium">
-                      ★ Upload or Paste Link
+                    <span className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3" />
+                      Firebase Storage Ready
                     </span>
                   </div>
 
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="text"
-                        required
-                        value={formData.logo}
-                        onChange={e => {
-                          const raw = e.target.value;
-                          const cleaned = cleanImageUrl(raw);
-                          setFormData({ ...formData, logo: cleaned });
-                        }}
-                        placeholder="Paste ImgBB link, Firebase Storage URL, or any image link"
-                        className="flex-1 p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00] text-xs"
-                      />
+                  <div className="relative rounded-2xl bg-slate-950 border border-slate-800 p-3.5 flex flex-col gap-3 transition-all">
+                    {/* Device Gallery Upload Button */}
+                    <div className="w-full">
+                      {formData.logo ? (
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 w-full bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={cleanImageUrl(formData.logo)}
+                              alt="Logo Preview"
+                              referrerPolicy="no-referrer"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = FALLBACK_APP_LOGO;
+                              }}
+                              className="w-12 h-12 rounded-xl object-cover ring-2 ring-[#FF8C00]/50 bg-slate-900 shadow-md shrink-0"
+                            />
+                            <div className="text-left">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                                <CheckCircle2 className="w-3 h-3" /> Ready
+                              </span>
+                              <p className="text-[10px] text-slate-400 mt-0.5 truncate max-w-[200px]">
+                                {formData.logo.startsWith('data:') ? 'Gallery Image Selected' : formData.logo}
+                              </p>
+                            </div>
+                          </div>
 
-                      <label className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 cursor-pointer shrink-0 transition-colors">
-                        {isUploadingLogo ? (
-                          <Loader2 className="w-4 h-4 animate-spin text-[#FF8C00]" />
-                        ) : (
-                          <Upload className="w-4 h-4 text-[#FF8C00]" />
-                        )}
-                        <span>{isUploadingLogo ? 'Uploading...' : 'Upload File'}</span>
-                        <input 
-                          type="file" 
-                          accept="image/*" 
-                          onChange={handleLogoFileUpload} 
-                          disabled={isUploadingLogo}
-                          className="hidden" 
-                        />
-                      </label>
-
-                      {formData.logo && (
-                        <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 shrink-0 flex items-center justify-center p-0.5" title="Live Logo Preview">
-                          <img
-                            src={cleanImageUrl(formData.logo)}
-                            alt="Logo Preview"
-                            referrerPolicy="no-referrer"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = FALLBACK_APP_LOGO;
-                            }}
-                            className="w-full h-full object-cover rounded-lg"
-                          />
+                          <label className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-100 text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-colors shrink-0">
+                            {isUploadingLogo ? (
+                              <Loader2 className="w-4 h-4 animate-spin text-[#FF8C00]" />
+                            ) : (
+                              <Upload className="w-4 h-4 text-[#FF8C00]" />
+                            )}
+                            <span>{isUploadingLogo ? 'Processing...' : 'Change Photo'}</span>
+                            <input 
+                              type="file" 
+                              accept="image/*" 
+                              onChange={handleLogoFileUpload} 
+                              disabled={isUploadingLogo}
+                              className="hidden" 
+                            />
+                          </label>
                         </div>
+                      ) : (
+                        <label className="w-full py-5 px-4 border-2 border-dashed border-slate-700 hover:border-[#FF8C00] rounded-xl flex flex-col items-center justify-center cursor-pointer transition-colors bg-slate-900/50">
+                          {isUploadingLogo ? (
+                            <div className="flex flex-col items-center gap-2 py-2">
+                              <Loader2 className="w-7 h-7 animate-spin text-[#FF8C00]" />
+                              <span className="text-xs font-bold text-amber-400">Processing Photo...</span>
+                            </div>
+                          ) : (
+                            <div className="flex flex-col items-center gap-1.5 py-1">
+                              <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-[#FF8C00]">
+                                <ImageIcon className="w-5 h-5" />
+                              </div>
+                              <span className="text-xs font-bold text-slate-200">Select Image from Device Gallery</span>
+                              <span className="text-[10px] text-slate-400">Tap to choose photo from mobile or PC</span>
+                            </div>
+                          )}
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleLogoFileUpload} 
+                            disabled={isUploadingLogo}
+                            className="hidden" 
+                          />
+                        </label>
                       )}
                     </div>
 
-                    {isImgBbViewerUrl(formData.logo) ? (
-                      <p className="text-[11px] text-amber-300 bg-amber-500/10 border border-amber-500/30 p-2 rounded-lg leading-tight font-medium">
-                        ⚠️ ImgBB Tip: Direct image URL (<code className="text-emerald-400 font-bold">i.ibb.co/...</code>) ya Firebase Storage par direct image upload karein!
-                      </p>
-                    ) : (
-                      <p className="text-[10px] text-slate-400">
-                        File picker se direct image <span className="text-amber-400 font-semibold">Firebase Storage</span> par upload karein, ya ImgBB link / direct URL paste karein.
-                      </p>
-                    )}
+                    {/* Direct Image URL fallback input */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] text-slate-400 font-medium">Or paste image web link manually (optional):</span>
+                      </div>
+                      <input
+                        type="text"
+                        value={formData.logo}
+                        onChange={e => setFormData({ ...formData, logo: cleanImageUrl(e.target.value) })}
+                        placeholder="Paste image URL (https://...)"
+                        className="w-full p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 text-xs focus:outline-none focus:border-[#FF8C00]"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -522,39 +537,6 @@ export const AdminAppsManager: React.FC = () => {
                     rows={3}
                     value={formData.fullDescription}
                     onChange={e => setFormData({ ...formData, fullDescription: e.target.value })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-slate-300 mb-1">Eligibility Criteria</label>
-                  <input
-                    type="text"
-                    value={formData.eligibility}
-                    onChange={e => setFormData({ ...formData, eligibility: e.target.value })}
-                    placeholder="e.g. New Users Only, Ages 18+"
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-slate-300 mb-1">Prerequisites (Comma separated)</label>
-                  <input
-                    type="text"
-                    value={formData.requirements}
-                    onChange={e => setFormData({ ...formData, requirements: e.target.value })}
-                    placeholder="PAN Card, Aadhaar OTP, Bank Account"
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-slate-300 mb-1">How it Works Steps (Comma separated)</label>
-                  <input
-                    type="text"
-                    value={formData.howItWorks}
-                    onChange={e => setFormData({ ...formData, howItWorks: e.target.value })}
-                    placeholder="Step 1 link, Step 2 register, Step 3 KYC, Step 4 cashback"
                     className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
                   />
                 </div>

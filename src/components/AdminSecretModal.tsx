@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'motion/react';
 export const AdminSecretModal: React.FC = () => {
   const { setViewMode, login, users, adminPassword } = useApp();
   const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState('admin@rohitloots.com');
+  const [email, setEmail] = useState('adminrohit@gmail.com');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -112,7 +112,7 @@ export const AdminSecretModal: React.FC = () => {
                     required
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    placeholder="admin@rohitloots.com"
+                    placeholder="example@gmail.com"
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
                   />
                   <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
@@ -130,7 +130,7 @@ export const AdminSecretModal: React.FC = () => {
                     autoFocus
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    placeholder="Enter password (e.g. Rohitloots@123)"
+                    placeholder="Enter password (e.g. ••••••••)"
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
                   />
                   <KeyRound className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
@@ -145,12 +145,6 @@ export const AdminSecretModal: React.FC = () => {
                 <span>Login to Admin Panel</span>
               </button>
             </form>
-
-            <div className="mt-4 pt-3 border-t border-slate-800 text-center">
-              <span className="text-[10px] text-slate-500">
-                Password: <code className="text-amber-400 font-mono font-bold">Rohitloots@123</code>
-              </span>
-            </div>
           </motion.div>
         </div>
       )}

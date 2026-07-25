@@ -8,7 +8,7 @@ export const LoginScreen: React.FC = () => {
   const [mode, setMode] = useState<'login' | 'register' | 'forgot'>('login');
   
   // Form states
-  const [email, setEmail] = useState('rohit@gmail.com');
+  const [email, setEmail] = useState('adminrohit@gmail.com');
   const [password, setPassword] = useState('password123');
   const [name, setName] = useState('Rohit Kumar');
   const [rememberMe, setRememberMe] = useState(true);
@@ -41,9 +41,9 @@ export const LoginScreen: React.FC = () => {
 
   const quickDemoLogin = (role: 'admin' | 'user') => {
     if (role === 'admin') {
-      login('admin@rohitloots.com', 'admin');
+      login('adminrohit@gmail.com', 'admin');
     } else {
-      login('aman.sharma@gmail.com', 'user');
+      login('example@gmail.com', 'user');
     }
   };
 
@@ -121,7 +121,7 @@ export const LoginScreen: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="rohit@example.com"
+                placeholder="example@gmail.com"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF8C00]/50 transition-all"
               />
               <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />

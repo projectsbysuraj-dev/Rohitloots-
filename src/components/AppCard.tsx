@@ -2,7 +2,7 @@ import React from 'react';
 import { AppItem } from '../types';
 import { useApp } from '../context/AppContext';
 import { cleanImageUrl, FALLBACK_APP_LOGO } from '../utils/imageUtils';
-import { Gift, Star, ArrowRight, ShieldCheck, Clock } from 'lucide-react';
+import { Gift, Star, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface AppCardProps {
@@ -15,7 +15,7 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
   return (
     <motion.div
       whileHover={{ y: -2, transition: { duration: 0.2 } }}
-      className="group relative bg-white/90 backdrop-blur-md rounded-xl p-3 shadow-card hover:shadow-soft border border-slate-100 hover:border-orange-200/80 transition-all flex flex-col justify-between overflow-hidden"
+      className="group relative bg-white/90 backdrop-blur-md rounded-xl p-3 shadow-card hover:shadow-soft border border-blue-500 hover:border-blue-600 transition-all flex flex-col justify-between overflow-hidden"
     >
       {/* Top Highlight Badge if featured */}
       {app.isFeatured && (
@@ -70,19 +70,24 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
         </p>
       </div>
 
-      {/* Card Footer: Estimated Time + Claim Button */}
-      <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
-        <div className="flex items-center gap-1 text-[10px] text-slate-400 font-medium">
-          <Clock className="w-3 h-3 text-slate-400" />
-          <span>{app.estimatedTime || '3 mins'}</span>
+      {/* Card Footer: Large Full-Width Claim Button */}
+      <div className="pt-2 border-t border-slate-100/80 flex flex-col gap-2 mt-auto">
+        <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium px-0.5">
+          <span className="text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded text-[10px]">
+            Instant Credit
+          </span>
+          <span className="text-[10px] text-slate-400 font-medium">
+            Verified Offer
+          </span>
         </div>
 
         <button
           onClick={() => setSelectedAppForClaim(app)}
-          className="py-1 px-2.5 rounded-md btn-saffron-gradient font-bold text-[10px] sm:text-[11px] flex items-center gap-1 shadow-xs active-scale cursor-pointer"
+          className="w-full py-2.5 px-3 rounded-xl btn-saffron-gradient font-extrabold text-xs sm:text-sm text-white flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/30 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer group"
         >
-          <span>Claim Reward</span>
-          <ArrowRight className="w-2.5 h-2.5" />
+          <Gift className="w-4 h-4 text-white" />
+          <span>Claim ₹{app.rewardAmount} Reward</span>
+          <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
     </motion.div>
