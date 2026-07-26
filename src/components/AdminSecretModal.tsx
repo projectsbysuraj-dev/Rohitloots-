@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'motion/react';
 export const AdminSecretModal: React.FC = () => {
   const { setViewMode, login, users, adminPassword } = useApp();
   const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState('fakeadmin@example.com');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -53,7 +53,7 @@ export const AdminSecretModal: React.FC = () => {
       setPassword('');
       setError('');
     } else {
-      setError('Invalid Admin Email or Password. Enter adminrohit@gmail.com & adminrohit@123123');
+      setError('Invalid Admin Email or Password.');
     }
   };
 

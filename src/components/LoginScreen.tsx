@@ -9,9 +9,9 @@ export const LoginScreen: React.FC = () => {
   const [mode, setMode] = useState<'login' | 'register' | 'forgot'>('login');
   
   // Form states
-  const [email, setEmail] = useState('adminrohit@gmail.com');
-  const [password, setPassword] = useState('password123');
-  const [name, setName] = useState('Rohit Kumar');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState('');
 

@@ -199,7 +199,7 @@ export const Header: React.FC = () => {
                           setShowProfileDropdown(false);
                           setViewMode('admin');
                         }}
-                        className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-sm font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-xl transition-colors"
+                        className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-xl transition-colors"
                       >
                         <Shield className="w-4 h-4 text-sky-600" />
                         <span>#</span>
@@ -210,7 +210,7 @@ export const Header: React.FC = () => {
                           setShowProfileDropdown(false);
                           window.dispatchEvent(new Event('openAdminLoginModal'));
                         }}
-                        className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-sm font-bold text-slate-800 hover:bg-slate-100 rounded-xl transition-colors"
+                        className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
                       >
                         <Shield className="w-4 h-4 text-sky-600" />
                         <span>#</span>
