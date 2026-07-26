@@ -65,6 +65,53 @@
   transform: translateY(0);
 }
 
+/* 3D Sky Tactile Button */
+.btn-3d-green,
+.btn-3d-sky {
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 60%, #075985 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: 9999px;
+  box-shadow: 0 4px 0 #0c4a6e, 0 6px 12px rgba(2, 132, 199, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.1s ease;
+}
+
+.btn-3d-green:hover,
+.btn-3d-sky:hover {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 60%, #0369a1 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #0c4a6e, 0 8px 16px rgba(2, 132, 199, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.btn-3d-green:active,
+.btn-3d-sky:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #0c4a6e, inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+/* 3D Blue Tactile Button */
+.btn-3d-blue {
+  background: linear-gradient(180deg, #0ea5e9 0%, #0284c7 60%, #0369a1 100%);
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: 9999px;
+  box-shadow: 0 4px 0 #075985, inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  transition: all 0.1s ease;
+}
+
+.btn-3d-blue:hover {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 60%, #0369a1 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #075985, inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.btn-3d-blue:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #075985, inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
 .tricolor-border {
   border-image: linear-gradient(to right, #FF8C00, #0A66C2, #138808) 1;
 }

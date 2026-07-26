@@ -1,9 +1,10 @@
 import React from 'react';
 import { AppItem } from '../types';
 import { useApp } from '../context/AppContext';
-import { cleanImageUrl, FALLBACK_APP_LOGO } from '../utils/imageUtils';
-import { Gift, Star, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Gift } from 'lucide-react';
 import { motion } from 'motion/react';
+import { cleanImageUrl, formatDisplayAmount } from '../utils/imageUtils';
+import bktBannerImg from '../assets/images/bkt_tires_banner_1785038054085.jpg';
 
 interface AppCardProps {
   app: AppItem;
@@ -12,84 +13,84 @@ interface AppCardProps {
 export const AppCard: React.FC<AppCardProps> = ({ app }) => {
   const { setSelectedAppForClaim } = useApp();
 
+  // Determine card image from admin app uploaded logo or bannerUrl or fallback
+  const uploadedImage = cleanImageUrl(app.logo) || cleanImageUrl(app.bannerUrl);
+  const bannerSrc = uploadedImage || bktBannerImg;
+
   return (
     <motion.div
       whileHover={{ y: -2, transition: { duration: 0.2 } }}
-      className="group relative bg-white/90 backdrop-blur-md rounded-xl p-3 shadow-card hover:shadow-soft border border-blue-500 hover:border-blue-600 transition-all flex flex-col justify-between overflow-hidden"
+      className="bg-white rounded-2xl shadow-md border border-slate-200/90 overflow-hidden flex flex-col justify-between"
     >
-      {/* Top Highlight Badge if featured */}
-      {app.isFeatured && (
-        <div className="absolute top-0 right-0 bg-gradient-to-l from-[#FF8C00] to-[#FF6B00] text-white text-[9px] font-bold px-2 py-0.5 rounded-bl-md shadow-xs flex items-center gap-0.5">
-          <Star className="w-2.5 h-2.5 fill-white" />
-          <span>Top Verified</span>
-        </div>
-      )}
+      {/* Top Banner Graphic */}
+      <div className="relative h-32 sm:h-36 w-full bg-slate-900 overflow-hidden flex items-end p-3">
+        {/* Banner Background Image */}
+        <img
+          src={bannerSrc}
+          alt={app.name}
+          referrerPolicy="no-referrer"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            if (app.bannerUrl && target.src !== app.bannerUrl) {
+              target.src = app.bannerUrl;
+            } else if (target.src !== bktBannerImg) {
+              target.src = bktBannerImg;
+            }
+          }}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-      <div>
-        {/* App Logo & Title Header */}
-        <div className="flex items-start gap-2 mb-1.5">
-          <img
-            src={cleanImageUrl(app.logo)}
-            alt={app.name}
-            referrerPolicy="no-referrer"
-            onError={(e) => {
-              // Fallback to default placeholder if ImgBB link or external link fails
-              (e.target as HTMLImageElement).src = FALLBACK_APP_LOGO;
-            }}
-            className="w-10 h-10 rounded-lg object-cover ring-1 ring-slate-100 shadow-xs group-hover:scale-105 transition-transform bg-slate-100 shrink-0"
-          />
-          <div className="flex-1 min-w-0 pr-8">
-            <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#FF8C00] transition-colors truncate">
-              {app.name}
-            </h3>
-            <div className="flex items-center gap-1 mt-0.5">
-              <span className="inline-flex items-center gap-0.5 text-[10px] font-semibold text-slate-500">
-                <Star className="w-2.5 h-2.5 text-amber-500 fill-amber-500" />
-                {app.rating || 4.8}
-              </span>
-              <span className="text-slate-300">•</span>
-              <span className="inline-flex items-center gap-0.5 text-[9px] font-medium text-emerald-600 bg-emerald-50 px-1 py-0.5 rounded-md border border-emerald-200">
-                <ShieldCheck className="w-2.5 h-2.5 text-emerald-600" />
-                Verified
-              </span>
-            </div>
-          </div>
+        {/* Product Title Overlay */}
+        <div className="relative z-10">
+          <h3 className="text-base sm:text-lg font-black text-white tracking-tight drop-shadow-md">
+            {app.name}
+          </h3>
         </div>
-
-        {/* Highlighted Reward Badge */}
-        <div className="mb-1.5">
-          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-emerald-500/10 border border-orange-200 text-[#FF8C00] font-extrabold text-xs shadow-xs">
-            <Gift className="w-3 h-3 text-[#FF8C00]" />
-            <span>₹{app.rewardAmount} Reward</span>
-          </div>
-        </div>
-
-        {/* Short Description */}
-        <p className="text-[10px] sm:text-[11px] text-slate-600 leading-snug line-clamp-2 mb-1.5 font-normal">
-          {app.shortDescription}
-        </p>
       </div>
 
-      {/* Card Footer: Large Full-Width Claim Button */}
-      <div className="pt-2 border-t border-slate-100/80 flex flex-col gap-2 mt-auto">
-        <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium px-0.5">
-          <span className="text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded text-[10px]">
-            Instant Credit
-          </span>
-          <span className="text-[10px] text-slate-400 font-medium">
-            Verified Offer
-          </span>
+      {/* Product Details Grid */}
+      <div className="p-3.5 space-y-2 text-xs sm:text-sm">
+        {/* Row 1: Sign up bonus */}
+        <div className="flex items-center justify-between text-slate-500 font-medium">
+          <span>Sign up bonus</span>
+          <span className="font-extrabold text-sky-600">{formatDisplayAmount(app.signUpBonus, '20')}</span>
         </div>
 
+        {/* Row 2: Minimum deposit */}
+        <div className="flex items-center justify-between text-slate-500 font-medium">
+          <span>Minimum deposit</span>
+          <span className="font-extrabold text-slate-900">{formatDisplayAmount(app.minDeposit, '1980')}</span>
+        </div>
+
+        {/* Row 3: Minimum withdrawal */}
+        <div className="flex items-center justify-between text-slate-500 font-medium">
+          <span>Minimum withdrawal</span>
+          <span className="font-extrabold text-slate-900">{formatDisplayAmount(app.minWithdrawal, '120')}</span>
+        </div>
+
+        {/* Row 4: Total earning */}
+        <div className="flex items-center justify-between text-slate-500 font-medium">
+          <span>Total earning</span>
+          <span className="font-extrabold text-sky-600">{formatDisplayAmount(app.totalEarning, '23760')}</span>
+        </div>
+
+        {/* Row 5: Rewards */}
+        <div className="flex items-center justify-between text-slate-500 font-medium border-t border-slate-100 pt-1.5">
+          <span>Rewards</span>
+          <span className="font-black text-sky-600 text-sm">{formatDisplayAmount(app.rewardAmount, '350')}</span>
+        </div>
+
+        {/* Large 3D Green Pill Action Button */}
         <button
           onClick={() => setSelectedAppForClaim(app)}
-          className="w-full py-2.5 px-3 rounded-xl btn-saffron-gradient font-extrabold text-xs sm:text-sm text-white flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/30 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer group"
+          className="w-full py-2.5 px-4 rounded-full btn-3d-green text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer transition-all shadow-md active:scale-95 group mt-2"
         >
-          <Gift className="w-4 h-4 text-white" />
-          <span>Claim ₹{app.rewardAmount} Reward</span>
-          <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+          <Gift className="w-4 h-4 text-white shrink-0" />
+          <span>Claim Now</span>
         </button>
       </div>
     </motion.div>
   );
 };
+

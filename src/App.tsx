@@ -8,6 +8,7 @@ import { CategorySection } from './components/CategorySection';
 import { ClaimBottomSheet } from './components/ClaimBottomSheet';
 import { BottomNav } from './components/BottomNav';
 import { AppCard } from './components/AppCard';
+import { TopActionBar } from './components/TopActionBar';
 import { AdminSecretModal } from './components/AdminSecretModal';
 import { cleanImageUrl, FALLBACK_APP_LOGO } from './utils/imageUtils';
 
@@ -18,7 +19,7 @@ import { AdminAppsManager } from './components/admin/AdminAppsManager';
 import { AdminTelegramManager } from './components/admin/AdminTelegramManager';
 import { AdminSettings } from './components/admin/AdminSettings';
 
-import { Sparkles, Send, Shield, Gift, Zap, TrendingUp, Award, Clock, ArrowRight, CheckCircle2, Search } from 'lucide-react';
+import { Sparkles, Send, Shield, Gift, Zap, TrendingUp, Award, Clock, ArrowRight, CheckCircle2, Search, Share2, Copy, Check, Users, Wallet, Smartphone } from 'lucide-react';
 import { motion } from 'motion/react';
 
 function AppContent() {
@@ -37,6 +38,16 @@ function AppContent() {
   } = useApp();
 
   const [adminTab, setAdminTab] = useState('dashboard');
+  const [selectedTier, setSelectedTier] = useState<'normal' | 'vip'>('normal');
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  const referLink = `https://wssiwwtyre2026.live/register?ref=${currentUser?.id || 'rohit123'}`;
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(referLink);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2000);
+  };
 
   // If not logged in, render LoginScreen
   if (!isLoggedIn) {
@@ -56,14 +67,18 @@ function AppContent() {
     );
   }
 
-  // Filter apps based on search query & category selection
+  // Filter apps based on search query & tier / category selection
   const publishedApps = apps.filter(a => a.status === 'published');
   
-  const latestApps = publishedApps.filter(a => a.category === 'latest');
-  const dailyApps = publishedApps.filter(a => a.category === 'daily');
-  const bonusApps = publishedApps.filter(a => a.category === 'bonus');
+  // Tier filtering for Normal vs VIP
+  const displayedApps = publishedApps.filter(a => {
+    if (selectedTier === 'vip') {
+      return a.rewardAmount >= 300 || a.isFeatured;
+    }
+    return true; // Normal shows all
+  });
 
-  const searchFilteredApps = publishedApps.filter(a => {
+  const searchFilteredApps = displayedApps.filter(a => {
     const matchesQuery = a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          a.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCat = selectedCategory === 'all' || a.category === selectedCategory;
@@ -71,46 +86,48 @@ function AppContent() {
   });
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 pb-20 md:pb-12 font-sans selection:bg-[#FF8C00]/20 selection:text-[#FF8C00]">
+    <div className="min-h-screen bg-[#F1F5F9] text-slate-900 pb-24 md:pb-12 font-sans">
       {/* Top Header */}
       <Header />
 
+      {/* Top Green Action Bar with Recharge, Withdraw, Service, Channel & Normal/VIP tabs */}
+      {activeTab === 'home' && (
+        <TopActionBar selectedTier={selectedTier} onSelectTier={setSelectedTier} />
+      )}
+
       {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        {/* User View Tabs Switcher */}
-        {activeTab === 'profile' ? (
-          /* Profile & Earnings View */
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        {/* VIEW 1: Profile Tab */}
+        {activeTab === 'profile' && (
           <div className="max-w-2xl mx-auto space-y-6 my-6">
             <div className="p-6 rounded-3xl bg-white shadow-card border border-slate-100 text-center relative overflow-hidden">
-              <div className="h-2 w-full bg-gradient-to-r from-[#FF8C00] via-[#0A66C2] to-[#138808] absolute top-0 left-0 right-0" />
+              <div className="h-2 w-full bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 absolute top-0 left-0 right-0" />
               
               <img
                 src={currentUser?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80'}
                 alt={currentUser?.name}
-                className="w-20 h-20 rounded-full object-cover ring-4 ring-[#FF8C00]/30 mx-auto mb-3"
+                className="w-20 h-20 rounded-full object-cover ring-4 ring-sky-500/30 mx-auto mb-3"
               />
               <h2 className="text-xl font-extrabold text-slate-900">{currentUser?.name}</h2>
               <p className="text-xs text-slate-500">{currentUser?.email}</p>
               
-              <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200/80 inline-flex items-center gap-3 text-center">
+              <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-sky-50 to-cyan-50 border border-sky-200/80 inline-flex items-center gap-3 text-center">
                 <div>
                   <span className="block text-[11px] text-slate-500 font-medium">Total Rewards Earned</span>
-                  <span className="text-2xl font-extrabold text-[#FF8C00]">₹{currentUser?.totalEarned || 0}</span>
+                  <span className="text-2xl font-extrabold text-sky-600">₹{currentUser?.totalEarned || 0}</span>
                 </div>
-                <div className="w-px h-8 bg-orange-200" />
+                <div className="w-px h-8 bg-sky-200" />
                 <div>
                   <span className="block text-[11px] text-slate-500 font-medium">Completed Claims</span>
                   <span className="text-2xl font-extrabold text-slate-800">{currentUser?.claimsCount || 0}</span>
                 </div>
               </div>
-
-
             </div>
 
             {/* My Claims History */}
             <div className="p-6 rounded-3xl bg-white shadow-card border border-slate-100">
               <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <Gift className="w-5 h-5 text-[#FF8C00]" />
+                <Gift className="w-5 h-5 text-sky-600" />
                 My Claim History
               </h3>
 
@@ -134,8 +151,8 @@ function AppContent() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-sm font-extrabold text-emerald-600 block">+₹{act.rewardAmount}</span>
-                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">
+                        <span className="text-sm font-extrabold text-sky-600 block">+₹{act.rewardAmount}</span>
+                        <span className="text-[10px] font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded-full">
                           {act.status}
                         </span>
                       </div>
@@ -150,122 +167,140 @@ function AppContent() {
               </div>
             </div>
           </div>
-        ) : (
-          /* Home Screen Main Content */
-          <>
-            {/* Hero Banner Section with Tricolor Ambient Accents */}
-            <div className="relative rounded-3xl overflow-hidden bg-slate-900 text-white p-6 sm:p-7 md:p-8 shadow-2xl border border-slate-800/80 my-4 sm:my-5">
-              {/* Abstract Tricolor Background Glows */}
-              <div className="absolute top-0 left-0 w-56 h-56 bg-[#FF8C00]/20 rounded-full blur-[60px] pointer-events-none" />
-              <div className="absolute bottom-0 right-0 w-56 h-56 bg-[#138808]/15 rounded-full blur-[60px] pointer-events-none" />
+        )}
 
-              <div className="relative z-10 space-y-3.5 sm:space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
-                    Best Buy Sell Applications
-                  </h1>
-                  <span className="text-sm sm:text-base font-bold text-[#FF8C00] bg-[#FF8C00]/10 px-3 py-1 rounded-full border border-[#FF8C00]/20">
-                    ★ Instant Cashback & Rewards
-                  </span>
+        {/* VIEW 2: Share / Refer View */}
+        {activeTab === 'share' && (
+          <div className="max-w-2xl mx-auto my-6 space-y-6">
+            <div className="p-6 sm:p-8 rounded-3xl bg-white shadow-xl border border-slate-200 text-center space-y-4">
+              <div className="w-16 h-16 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                <Share2 className="w-8 h-8" />
+              </div>
+              <h2 className="text-2xl font-black text-slate-900">Invite Friends & Earn Commission</h2>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+                Share your invitation link to earn up to 3 tiers of team commissions: <strong className="text-sky-600">Level 1 (25%)</strong>, <strong>Level 2 (3%)</strong>, and <strong>Level 3 (2%)</strong>!
+              </p>
+
+              {/* Referral Link Box */}
+              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between gap-2 text-xs sm:text-sm">
+                <span className="font-mono text-slate-700 truncate font-semibold px-2">{referLink}</span>
+                <button
+                  onClick={handleCopyLink}
+                  className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl flex items-center gap-1.5 shrink-0 transition-all cursor-pointer shadow-md"
+                >
+                  {copiedLink ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4 text-white" />}
+                  <span>{copiedLink ? 'Copied!' : 'Copy Link'}</span>
+                </button>
+              </div>
+
+              {/* Commission Tier Cards */}
+              <div className="grid grid-cols-3 gap-3 pt-2 text-center">
+                <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100">
+                  <span className="block text-[11px] font-bold text-sky-800">Level 1</span>
+                  <span className="text-xl font-black text-sky-600">25%</span>
+                  <span className="block text-[10px] text-slate-500">Direct Refer</span>
                 </div>
-
-                {/* Half & Half Row */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1.5">
-                  <button
-                    onClick={() => toggleTelegramModal(true)}
-                    className="flex-1 py-3.5 px-6 rounded-2xl bg-[#0A66C2] hover:bg-[#08529c] hover:scale-[1.02] text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-sky-500/25 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
-                  >
-                    <Send className="w-5 h-5 shrink-0" />
-                    <span>Join Telegram</span>
-                  </button>
-
-                  <div className="flex-1 py-3.5 px-6 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md flex items-center justify-center gap-2.5 text-sm sm:text-base font-extrabold text-[#FF8C00] whitespace-nowrap">
-                    <Sparkles className="w-5 h-5 text-[#FF8C00] shrink-0" />
-                    <span>100% Direct Payouts</span>
-                  </div>
+                <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100">
+                  <span className="block text-[11px] font-bold text-sky-800">Level 2</span>
+                  <span className="text-xl font-black text-sky-600">3%</span>
+                  <span className="block text-[10px] text-slate-500">Secondary</span>
+                </div>
+                <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100">
+                  <span className="block text-[11px] font-bold text-sky-800">Level 3</span>
+                  <span className="text-xl font-black text-sky-600">2%</span>
+                  <span className="block text-[10px] text-slate-500">Tertiary</span>
                 </div>
               </div>
             </div>
+          </div>
+        )}
 
-            {/* Search Bar & Category Filters */}
-            <SearchBar />
+        {/* VIEW 3: Team View */}
+        {activeTab === 'team' && (
+          <div className="max-w-2xl mx-auto my-6 space-y-6">
+            <div className="p-6 sm:p-8 rounded-3xl bg-white shadow-xl border border-slate-200 space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-black text-slate-900">My Team Dashboard</h2>
+                  <p className="text-xs text-slate-500">Track your referral team members and total commission</p>
+                </div>
+              </div>
+
+              {/* Summary Metrics */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+                  <span className="text-xs text-slate-500 font-semibold block">Total Team Members</span>
+                  <span className="text-2xl font-black text-slate-900 mt-1 block">12 Members</span>
+                </div>
+                <div className="p-4 bg-sky-50 rounded-2xl border border-sky-200 text-center">
+                  <span className="text-xs text-sky-800 font-semibold block">Total Team Commission</span>
+                  <span className="text-2xl font-black text-sky-600 mt-1 block">₹1,450</span>
+                </div>
+              </div>
+
+              {/* Team Breakdown Table */}
+              <div className="space-y-3">
+                <h3 className="text-sm font-extrabold text-slate-800">Team Commission Structure</h3>
+                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-semibold">
+                  <span>Level 1 (25% Direct Commission)</span>
+                  <span className="text-sky-600 font-bold">8 Members</span>
+                </div>
+                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-semibold">
+                  <span>Level 2 (3% Secondary Commission)</span>
+                  <span className="text-sky-600 font-bold">3 Members</span>
+                </div>
+                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-semibold">
+                  <span>Level 3 (2% Tertiary Commission)</span>
+                  <span className="text-sky-600 font-bold">1 Member</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* VIEW 4: Home View (Product Cards Grid) */}
+        {activeTab === 'home' && (
+          <>
+            {/* Search Bar */}
+            <div className="mb-4">
+              <SearchBar />
+            </div>
 
             {/* If no published apps exist at all */}
             {publishedApps.length === 0 ? (
               <div className="my-10 p-8 sm:p-12 text-center bg-white/90 backdrop-blur-md rounded-3xl border border-slate-200/80 shadow-card max-w-md mx-auto">
-                <div className="w-14 h-14 bg-orange-100 text-[#FF8C00] rounded-2xl flex items-center justify-center mx-auto mb-3">
+                <div className="w-14 h-14 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
                   <Gift className="w-7 h-7" />
                 </div>
-                <h3 className="text-base font-extrabold text-slate-900">Koi application available nahi hai</h3>
+                <h3 className="text-base font-extrabold text-slate-900">Koi product/app available nahi hai</h3>
                 <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                  Admin ke dwaara naye applications publish kiye jaane par yahan live dikhenge.
+                  Admin ke dwaara naye products publish kiye jaane par yahan live dikhenge.
                 </p>
                 {currentUser?.role === 'admin' && (
                   <button
                     onClick={() => setViewMode('admin')}
-                    className="mt-4 px-4 py-2 rounded-xl btn-saffron-gradient text-white font-bold text-xs shadow-md cursor-pointer inline-flex items-center gap-1.5"
+                    className="mt-4 px-4 py-2 rounded-xl btn-3d-sky text-white font-bold text-xs shadow-md cursor-pointer inline-flex items-center gap-1.5"
                   >
                     <span>Admin Panel M Naye Apps Add Karein</span>
                   </button>
                 )}
               </div>
-            ) : searchQuery || selectedCategory !== 'all' ? (
-              /* If user is searching or filtering, display matched results directly */
-              <div className="my-8">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
-                    <Search className="w-5 h-5 text-[#FF8C00]" />
-                    <span>Search Results ({searchFilteredApps.length})</span>
-                  </h2>
-                </div>
-
-                {searchFilteredApps.length === 0 ? (
-                  <div className="p-12 text-center bg-white rounded-3xl border border-slate-200">
-                    <p className="text-sm font-semibold text-slate-600">
-                      No applications matched "{searchQuery}".
-                    </p>
-                    <p className="text-xs text-slate-400 mt-1">
-                      Try searching for "Angel One", "Groww", "Navi", or "Fi".
-                    </p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                    {searchFilteredApps.map(app => (
-                      <AppCard key={app.id} app={app} />
-                    ))}
-                  </div>
-                )}
+            ) : searchFilteredApps.length === 0 ? (
+              <div className="p-12 text-center bg-white rounded-3xl border border-slate-200">
+                <p className="text-sm font-semibold text-slate-600">
+                  No applications matched "{searchQuery}".
+                </p>
               </div>
             ) : (
-              /* Default Categorized Layout showing the 3 core sections */
-              <>
-                {/* Category 1: Latest Applications */}
-                <CategorySection
-                  title="Latest Applications"
-                  categoryKey="latest"
-                  apps={latestApps}
-                  subtitle="New high-reward demat & stock trading launches with instant signup cashback."
-                  badgeText="High Cashback"
-                />
-
-                {/* Category 2: Daily Buy Sell Apps */}
-                <CategorySection
-                  title="Daily Buy Sell Apps"
-                  categoryKey="daily"
-                  apps={dailyApps}
-                  subtitle="Top brokerages for daily stock & F&O trades with trading bonus vouchers."
-                  badgeText="Daily Trading Rewards"
-                />
-
-                {/* Category 3: Bonus Claim Only */}
-                <CategorySection
-                  title="Bonus Claim Only"
-                  categoryKey="bonus"
-                  apps={bonusApps}
-                  subtitle="Instant UPI scan & pay cashback, zero balance accounts, and SIP gift cards."
-                  badgeText="Instant Bonus"
-                />
-              </>
+              /* BKT Product Grid Layout: 2 Columns on Mobile / 2-4 Columns on Desktop */
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 my-2">
+                {searchFilteredApps.map(app => (
+                  <AppCard key={app.id} app={app} />
+                ))}
+              </div>
             )}
           </>
         )}

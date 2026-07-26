@@ -6,6 +6,11 @@ export function cleanImageUrl(input: string | undefined | null): string {
   if (!input) return '';
   let url = input.trim();
 
+  // 0. Base64 data URL from file upload
+  if (url.startsWith('data:image/')) {
+    return url;
+  }
+
   // 1. Handle HTML Embed code pasted from ImgBB / PostImage / ImageShack
   // e.g. <a href="https://ibb.co/xyz"><img src="https://i.ibb.co/xyz/logo.png" alt="logo" border="0"></a>
   const srcMatch = url.match(/src=["']([^"']+)["']/i);
@@ -36,4 +41,27 @@ export function isImgBbViewerUrl(url: string): boolean {
   const clean = cleanImageUrl(url);
   // Matches https://ibb.co/XYZ but NOT https://i.ibb.co/XYZ/image.png
   return clean.includes('ibb.co/') && !clean.includes('i.ibb.co/');
+}
+
+export function formatDisplayAmount(val: number | string | undefined | null, defaultVal: string = '0'): string {
+  if (val === undefined || val === null || val === '') {
+    return defaultVal.includes('%') || defaultVal.startsWith('₹') ? defaultVal : `₹${defaultVal}`;
+  }
+  if (typeof val === 'number') {
+    return `₹${val.toLocaleString('en-IN')}`;
+  }
+  const str = String(val).trim();
+  if (!str) {
+    return defaultVal.includes('%') || defaultVal.startsWith('₹') ? defaultVal : `₹${defaultVal}`;
+  }
+  // If user typed custom text with %, ₹, comma, or text like "1%, 2%" or "1%"
+  if (str.includes('%') || str.startsWith('₹') || str.toLowerCase().includes('cashback') || str.includes(',')) {
+    return str;
+  }
+  // If pure numeric string
+  const num = Number(str);
+  if (!isNaN(num)) {
+    return `₹${num.toLocaleString('en-IN')}`;
+  }
+  return str;
 }

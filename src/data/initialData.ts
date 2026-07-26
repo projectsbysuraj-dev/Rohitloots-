@@ -13,7 +13,7 @@ export const INITIAL_APPS: AppItem[] = [
     rewardType: 'Instant Account Cashback',
     shortDescription: 'Free demat account opening with ₹500 direct trading reward & zero brokerage for 30 days.',
     fullDescription: 'Angel One is one of India\'s leading retail stock broking houses. Complete instant Aadhaar e-KYC to get ₹500 welcome reward directly into your bank account on your first transaction.',
-    referralUrl: 'https://angelone.in/referral?code=ROHITLOOTS500',
+    referralUrl: 'https://angelone.in/referral?code=ROHITTRICKS500',
     status: 'published',
     rating: 4.9,
     totalClaims: 3840,
@@ -133,7 +133,7 @@ export const INITIAL_APPS: AppItem[] = [
       'Click link to land on Zerodha onboarding.',
       'Enter phone & verify Aadhaar OTP.',
       'Pay account fee & finish e-sign.',
-      'Get ₹400 cashback transferred via Rohit Loots claim verification.'
+      'Get ₹400 cashback transferred via Rohit Tricks claim verification.'
     ],
     estimatedTime: '5 Minutes',
     isFeatured: true,
@@ -255,7 +255,7 @@ export const INITIAL_USERS: User[] = [
   {
     id: 'u-1',
     name: 'Rohit Kumar',
-    email: 'admin@rohitloots.com',
+    email: 'admin@rohittricks.com',
     role: 'admin',
     status: 'active',
     registeredDate: '2026-01-01',
@@ -397,12 +397,12 @@ export const INITIAL_ACTIVITIES: ClaimActivity[] = [
 
 export const INITIAL_TELEGRAM_CONFIG: TelegramConfig = {
   enabled: true,
-  title: '🎁 Join our Telegram Community',
-  description: 'Join our Telegram Channel to receive latest Buy & Sell Apps, Daily Rewards, Bonus Claims and Exclusive Offers.',
-  channelLink: 'https://t.me/RohitLootsOfficial',
-  channelName: '@RohitLootsOfficial',
-  buttonText: 'Join Telegram',
-  memberCount: '145,000+ Members'
+  title: 'Welcome To All Buy Sell Aplication + Upi Reward',
+  description: 'UPI Rewards & Daily Loots',
+  channelLink: 'https://t.me/RohitTricksOfficial',
+  channelName: '@RohitTricksOfficial',
+  buttonText: 'Join Our Telegram Community',
+  memberCount: '145,000+ Active Members'
 };
 
 export const INITIAL_NOTIFICATIONS: AppNotification[] = [
@@ -424,7 +424,7 @@ export const INITIAL_NOTIFICATIONS: AppNotification[] = [
   },
   {
     id: 'notif-3',
-    title: 'Welcome to Rohit Loots!',
+    title: 'Welcome to Rohit Tricks!',
     message: 'Start exploring top rated buy & sell apps to earn daily cashback bonuses.',
     type: 'system',
     timestamp: 'Yesterday',

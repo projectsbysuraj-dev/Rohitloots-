@@ -7,13 +7,17 @@ export interface AppItem {
   categoryLabel?: string;
   logo: string;
   bannerUrl?: string;
-  rewardAmount: number; // e.g. 150, 350, 500
+  rewardAmount: number | string; // e.g. 150, 350, "1%", "2%"
   rewardType?: string; // e.g. 'Instant Cashback', 'Bonus Claim', 'Trade Cashback'
+  signUpBonus?: number | string; // e.g. 20, "1%"
+  minDeposit?: number | string; // e.g. 525, "1980"
+  minWithdrawal?: number | string; // e.g. 120, "120"
+  totalEarning?: number | string; // e.g. 23760, "10%"
   shortDescription: string;
   fullDescription: string;
   referralUrl: string;
   status: 'published' | 'draft';
-  rating: number; // e.g. 4.8
+  rating: number | string; // e.g. 4.8
   totalClaims: number; // e.g. 1240
   requirements: string[]; // e.g. ['Aadhaar linked Mobile', 'PAN Card', 'Bank Account']
   eligibility: string; // e.g. 'New Users Only'
@@ -44,7 +48,7 @@ export interface ClaimActivity {
   appId: string;
   appName: string;
   appLogo: string;
-  rewardAmount: number;
+  rewardAmount: number | string;
   status: 'completed' | 'pending' | 'rejected';
   date: string;
   transactionRef?: string;

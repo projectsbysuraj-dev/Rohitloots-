@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { cleanImageUrl, FALLBACK_APP_LOGO } from '../utils/imageUtils';
+import { cleanImageUrl, FALLBACK_APP_LOGO, formatDisplayAmount } from '../utils/imageUtils';
 import { X, Gift, ExternalLink, CheckCircle2, ShieldCheck, FileText, ChevronRight, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
@@ -53,7 +53,7 @@ export const ClaimBottomSheet: React.FC = () => {
           </div>
 
           {/* Sheet Header */}
-          <div className="p-4 sm:p-6 bg-gradient-to-r from-orange-50/50 via-sky-50/30 to-emerald-50/50 border-b border-slate-100 relative">
+          <div className="p-4 sm:p-6 bg-gradient-to-r from-orange-50/50 via-sky-50/30 to-sky-50/50 border-b border-slate-100 relative">
             <button
               onClick={() => setSelectedAppForClaim(null)}
               className="absolute top-4 right-4 p-2 rounded-full bg-slate-200/60 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
@@ -72,7 +72,7 @@ export const ClaimBottomSheet: React.FC = () => {
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-4 ring-white shadow-md bg-slate-100"
               />
               <div className="flex-1 pr-6">
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold border border-emerald-200">
+                <span className="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[11px] font-bold border border-sky-200">
                   {selectedAppForClaim.categoryLabel || 'Verified Buy & Sell App'}
                 </span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
@@ -82,7 +82,7 @@ export const ClaimBottomSheet: React.FC = () => {
                 {/* Big Reward Tag */}
                 <div className="inline-flex items-center gap-2 mt-2 px-3 py-1 bg-gradient-to-r from-[#FF8C00] to-[#E07B00] text-white rounded-xl font-extrabold text-base shadow-sm">
                   <Gift className="w-4 h-4" />
-                  <span>₹{selectedAppForClaim.rewardAmount} Cashback Reward</span>
+                  <span>{formatDisplayAmount(selectedAppForClaim.rewardAmount, '350')} Cashback Reward</span>
                 </div>
               </div>
             </div>
@@ -101,7 +101,7 @@ export const ClaimBottomSheet: React.FC = () => {
               </div>
               <div className="border-l border-slate-200">
                 <span className="block text-[10px] text-slate-400 font-medium">Total Claims</span>
-                <span className="text-xs font-bold text-emerald-600 mt-0.5 block">
+                <span className="text-xs font-bold text-sky-600 mt-0.5 block">
                   {selectedAppForClaim.totalClaims.toLocaleString()}+ Users
                 </span>
               </div>
@@ -162,7 +162,7 @@ export const ClaimBottomSheet: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {selectedAppForClaim.requirements.map((req, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-[#138808] shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
                       <span>{req}</span>
                     </div>
                   ))}
@@ -175,10 +175,10 @@ export const ClaimBottomSheet: React.FC = () => {
           <div className="p-4 sm:p-5 bg-white border-t border-slate-100 shadow-2xl">
             <button
               onClick={handleOpenReferralWebsite}
-              className="w-full py-4 px-6 rounded-2xl btn-saffron-gradient text-white font-black text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-orange-500/25 hover:scale-[1.01] active:scale-95 transition-all cursor-pointer group"
+              className="w-full py-4 px-6 rounded-full btn-3d-sky text-white font-black text-base sm:text-lg flex items-center justify-center gap-3 cursor-pointer group"
             >
               <Gift className="w-5 h-5 text-white shrink-0" />
-              <span>Open Website & Claim ₹{selectedAppForClaim.rewardAmount}</span>
+              <span>Open Website & Claim {formatDisplayAmount(selectedAppForClaim.rewardAmount, '350')}</span>
               <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform shrink-0" />
             </button>
             <p className="text-[11px] text-center text-slate-400 mt-2 font-medium">

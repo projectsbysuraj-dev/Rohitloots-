@@ -303,9 +303,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // 3. Update current user earnings in Firebase
     if (currentUser) {
+      const addedVal = typeof app.rewardAmount === 'number' ? app.rewardAmount : (parseFloat(String(app.rewardAmount).replace(/[^0-9.]/g, '')) || 0);
       const updatedUser: User = {
         ...currentUser,
-        totalEarned: (currentUser.totalEarned || 0) + app.rewardAmount,
+        totalEarned: (currentUser.totalEarned || 0) + addedVal,
         claimsCount: (currentUser.claimsCount || 0) + 1
       };
       setCurrentUser(updatedUser);

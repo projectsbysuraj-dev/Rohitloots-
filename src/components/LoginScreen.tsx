@@ -49,11 +49,11 @@ export const LoginScreen: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full relative flex items-center justify-center p-4 bg-slate-950 overflow-hidden">
-      {/* Background Abstract Tricolor Gradient Mesh Shapes */}
+      {/* Background Abstract Gradient Mesh Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#FF8C00]/30 blur-[100px] animate-pulse" />
         <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-[#0A66C2]/30 blur-[100px] animate-pulse delay-700" />
-        <div className="absolute -bottom-32 left-1/3 w-96 h-96 rounded-full bg-[#138808]/25 blur-[100px] animate-pulse delay-1000" />
+        <div className="absolute -bottom-32 left-1/3 w-96 h-96 rounded-full bg-[#0284c7]/25 blur-[100px] animate-pulse delay-1000" />
         
         {/* Decorative Grid Lines */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]" />
@@ -70,15 +70,15 @@ export const LoginScreen: React.FC = () => {
         <div className="text-center mb-6">
           {/* Top Left/Center Logo */}
           <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#138808] p-0.5 shadow-lg shadow-orange-500/20">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#0284c7] p-0.5 shadow-lg shadow-orange-500/20">
               <div className="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
-                <span className="text-white font-extrabold text-xl tracking-wider font-mono">RL</span>
+                <span className="text-white font-extrabold text-xl tracking-wider font-mono">RT</span>
               </div>
             </div>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center justify-center gap-1.5">
-            Rohit Loots
+            Rohit Tricks
             <Sparkles className="w-5 h-5 text-[#FF8C00] fill-[#FF8C00]/30" />
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
@@ -169,10 +169,10 @@ export const LoginScreen: React.FC = () => {
             </div>
           )}
 
-          {/* Orange Gradient Login Button */}
+          {/* 3D Sky Blue Login Button */}
           <button
             type="submit"
-            className="w-full mt-2 py-3 px-4 rounded-2xl btn-saffron-gradient font-bold text-sm tracking-wide flex items-center justify-center gap-2 group cursor-pointer"
+            className="w-full mt-2 py-3 px-4 rounded-full btn-3d-sky font-bold text-sm tracking-wide flex items-center justify-center gap-2 group cursor-pointer"
           >
             <span>
               {mode === 'login' ? 'Login Now' : mode === 'register' ? 'Create Free Account' : 'Reset Password'}
@@ -208,11 +208,11 @@ export const LoginScreen: React.FC = () => {
           </div>
 
           <div className="flex items-center justify-center gap-4 text-[11px] text-slate-400">
-            <a href="#privacy" onClick={(e) => { e.preventDefault(); alert('Rohit Loots Privacy Policy: Your data is 100% safe & protected.'); }} className="hover:text-slate-600 transition-colors">
+            <a href="#privacy" onClick={(e) => { e.preventDefault(); alert('Rohit Tricks Privacy Policy: Your data is 100% safe & protected.'); }} className="hover:text-slate-600 transition-colors">
               Privacy Policy
             </a>
             <span>•</span>
-            <a href="#terms" onClick={(e) => { e.preventDefault(); alert('Rohit Loots Terms: Use verified referral links to claim rewards.'); }} className="hover:text-slate-600 transition-colors">
+            <a href="#terms" onClick={(e) => { e.preventDefault(); alert('Rohit Tricks Terms: Use verified referral links to claim rewards.'); }} className="hover:text-slate-600 transition-colors">
               Terms & Conditions
             </a>
           </div>

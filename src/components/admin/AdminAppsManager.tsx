@@ -41,9 +41,9 @@ export const AdminAppsManager: React.FC = () => {
     try {
       setIsUploadingLogo(true);
       const firebaseUrl = await uploadToFirebaseStorage(file, 'app_logos');
-      setFormData(prev => ({ ...prev, logo: firebaseUrl }));
+      setFormData(prev => ({ ...prev, logo: firebaseUrl, bannerUrl: firebaseUrl }));
     } catch (err) {
-      alert('Firebase Storage Image Upload Failed. Please check internet connection.');
+      alert('Image upload failed. Please try again.');
     } finally {
       setIsUploadingLogo(false);
     }
@@ -60,13 +60,17 @@ export const AdminAppsManager: React.FC = () => {
     category: 'latest' as AppCategory,
     logo: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=150&auto=format&fit=crop&q=80',
     bannerUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&auto=format&fit=crop&q=80',
-    rewardAmount: 350,
+    signUpBonus: '20' as string | number,
+    minDeposit: '1980' as string | number,
+    minWithdrawal: '120' as string | number,
+    totalEarning: '23760' as string | number,
+    rewardAmount: '350' as string | number,
     rewardType: 'Instant Cashback',
     shortDescription: '',
     fullDescription: '',
     referralUrl: '',
     status: 'published' as 'published' | 'draft',
-    rating: 4.8,
+    rating: '4.8' as string | number,
     requirements: 'Aadhaar Card, PAN Card, Bank Account',
     eligibility: 'New Users Only',
     howItWorks: 'Click link, Complete KYC, Perform 1st transaction, Receive cashback',
@@ -88,16 +92,20 @@ export const AdminAppsManager: React.FC = () => {
       category: 'latest',
       logo: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=150&auto=format&fit=crop&q=80',
       bannerUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&auto=format&fit=crop&q=80',
-      rewardAmount: 350,
+      signUpBonus: '20',
+      minDeposit: '1980',
+      minWithdrawal: '120',
+      totalEarning: '23760',
+      rewardAmount: '350',
       rewardType: 'Instant Cashback',
-      shortDescription: 'Free account opening with ₹350 instant cashback.',
-      fullDescription: 'Complete quick 2-minute KYC onboarding to claim instant cash directly in your bank account.',
-      referralUrl: 'https://example.com/referral?code=ROHIT350',
+      shortDescription: '',
+      fullDescription: '',
+      referralUrl: '',
       status: 'published',
-      rating: 4.8,
+      rating: '4.8',
       requirements: 'Aadhaar Card, PAN Card, Bank Account',
       eligibility: 'New Users Only',
-      howItWorks: 'Click referral website button, Register mobile number, Complete KYC verification, Get ₹350 credited!',
+      howItWorks: 'Click referral website button, Register mobile number, Complete KYC verification, Get rewards credited!',
       estimatedTime: '3 - 5 Minutes',
       isFeatured: true
     });
@@ -111,13 +119,17 @@ export const AdminAppsManager: React.FC = () => {
       category: app.category,
       logo: app.logo,
       bannerUrl: app.bannerUrl || '',
-      rewardAmount: app.rewardAmount,
+      signUpBonus: app.signUpBonus ?? '20',
+      minDeposit: app.minDeposit ?? app.rewardAmount,
+      minWithdrawal: app.minWithdrawal ?? '120',
+      totalEarning: app.totalEarning ?? '23760',
+      rewardAmount: app.rewardAmount ?? '350',
       rewardType: app.rewardType || 'Instant Cashback',
-      shortDescription: app.shortDescription,
-      fullDescription: app.fullDescription,
-      referralUrl: app.referralUrl,
+      shortDescription: app.shortDescription || '',
+      fullDescription: app.fullDescription || '',
+      referralUrl: app.referralUrl || '',
       status: app.status,
-      rating: app.rating || 4.8,
+      rating: app.rating || '4.8',
       requirements: (app.requirements || []).join(', '),
       eligibility: app.eligibility || 'New Users Only',
       howItWorks: (app.howItWorks || []).join(', '),
@@ -130,47 +142,46 @@ export const AdminAppsManager: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formattedRequirements = formData.requirements.split(',').map(s => s.trim()).filter(Boolean);
-    const formattedHowItWorks = formData.howItWorks.split(',').map(s => s.trim()).filter(Boolean);
+    const formattedRequirements = formData.requirements
+      ? formData.requirements.split(',').map(s => s.trim()).filter(Boolean)
+      : ['Aadhaar Card', 'Bank Account'];
+    const formattedHowItWorks = formData.howItWorks
+      ? formData.howItWorks.split(',').map(s => s.trim()).filter(Boolean)
+      : ['Click referral link', 'Complete registration', 'Claim cashback'];
+
+    const finalName = formData.name.trim() || 'New Application';
+    const finalLogo = formData.logo.trim() || FALLBACK_APP_LOGO;
+    const finalReferralUrl = formData.referralUrl.trim() || '#';
+    const finalShortDescription = formData.shortDescription.trim() || 'Claim cashback & rewards.';
+    const finalFullDescription = formData.fullDescription.trim() || 'Complete quick onboarding to claim reward.';
+
+    const appPayload = {
+      name: finalName,
+      category: formData.category || 'latest',
+      logo: finalLogo,
+      bannerUrl: formData.bannerUrl || finalLogo,
+      signUpBonus: formData.signUpBonus !== '' ? formData.signUpBonus : '20',
+      minDeposit: formData.minDeposit !== '' ? formData.minDeposit : '1980',
+      minWithdrawal: formData.minWithdrawal !== '' ? formData.minWithdrawal : '120',
+      totalEarning: formData.totalEarning !== '' ? formData.totalEarning : '23760',
+      rewardAmount: formData.rewardAmount !== '' ? formData.rewardAmount : '350',
+      rewardType: formData.rewardType || 'Instant Cashback',
+      shortDescription: finalShortDescription,
+      fullDescription: finalFullDescription,
+      referralUrl: finalReferralUrl,
+      status: formData.status || 'published',
+      rating: formData.rating || '4.8',
+      requirements: formattedRequirements,
+      eligibility: formData.eligibility || 'Open for all new registrations.',
+      howItWorks: formattedHowItWorks,
+      estimatedTime: formData.estimatedTime || '3 - 5 Minutes',
+      isFeatured: formData.isFeatured
+    };
 
     if (editingApp) {
-      updateApp(editingApp.id, {
-        name: formData.name,
-        category: formData.category,
-        logo: formData.logo,
-        bannerUrl: formData.bannerUrl,
-        rewardAmount: Number(formData.rewardAmount),
-        rewardType: formData.rewardType,
-        shortDescription: formData.shortDescription,
-        fullDescription: formData.fullDescription,
-        referralUrl: formData.referralUrl,
-        status: formData.status,
-        rating: Number(formData.rating),
-        requirements: formattedRequirements,
-        eligibility: formData.eligibility,
-        howItWorks: formattedHowItWorks,
-        estimatedTime: formData.estimatedTime,
-        isFeatured: formData.isFeatured
-      });
+      updateApp(editingApp.id, appPayload);
     } else {
-      addApp({
-        name: formData.name,
-        category: formData.category,
-        logo: formData.logo,
-        bannerUrl: formData.bannerUrl,
-        rewardAmount: Number(formData.rewardAmount),
-        rewardType: formData.rewardType,
-        shortDescription: formData.shortDescription,
-        fullDescription: formData.fullDescription,
-        referralUrl: formData.referralUrl,
-        status: formData.status,
-        rating: Number(formData.rating),
-        requirements: formattedRequirements,
-        eligibility: formData.eligibility,
-        howItWorks: formattedHowItWorks,
-        estimatedTime: formData.estimatedTime,
-        isFeatured: formData.isFeatured
-      });
+      addApp(appPayload);
     }
 
     setIsModalOpen(false);
@@ -376,10 +387,9 @@ export const AdminAppsManager: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-4 text-xs">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-semibold text-slate-300 mb-1">App Name</label>
+                    <label className="block font-semibold text-slate-300 mb-1">App Name (Optional)</label>
                     <input
                       type="text"
-                      required
                       value={formData.name}
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Angel One Pro"
@@ -401,22 +411,68 @@ export const AdminAppsManager: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block font-semibold text-slate-300 mb-1">Reward Amount (₹)</label>
-                  <input
-                    type="number"
-                    required
-                    value={formData.rewardAmount}
-                    onChange={e => setFormData({ ...formData, rewardAmount: Number(e.target.value) })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
-                  />
+                {/* Financial Requirements Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-slate-950/60 rounded-2xl border border-slate-800">
+                  <div>
+                    <label className="block font-semibold text-slate-300 mb-1 text-[11px]">Sign Up Bonus (Optional)</label>
+                    <input
+                      type="text"
+                      value={formData.signUpBonus}
+                      onChange={e => setFormData({ ...formData, signUpBonus: e.target.value })}
+                      placeholder="e.g. 20 or 1%"
+                      className="w-full p-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-slate-300 mb-1 text-[11px]">Minimum Deposit (Optional)</label>
+                    <input
+                      type="text"
+                      value={formData.minDeposit}
+                      onChange={e => setFormData({ ...formData, minDeposit: e.target.value })}
+                      placeholder="e.g. 1980 or 2%"
+                      className="w-full p-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-slate-300 mb-1 text-[11px]">Minimum Withdrawal (Optional)</label>
+                    <input
+                      type="text"
+                      value={formData.minWithdrawal}
+                      onChange={e => setFormData({ ...formData, minWithdrawal: e.target.value })}
+                      placeholder="e.g. 120"
+                      className="w-full p-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-slate-300 mb-1 text-[11px]">Total Earning (Optional)</label>
+                    <input
+                      type="text"
+                      value={formData.totalEarning}
+                      onChange={e => setFormData({ ...formData, totalEarning: e.target.value })}
+                      placeholder="e.g. 23760 or 10%"
+                      className="w-full p-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block font-semibold text-slate-300 mb-1 text-[11px]">Rewards / Cashback Amount (e.g. 350, 1%, 2% text allowed)</label>
+                    <input
+                      type="text"
+                      value={formData.rewardAmount}
+                      onChange={e => setFormData({ ...formData, rewardAmount: e.target.value })}
+                      placeholder="e.g. 350, 1%, 2%, 5% Daily"
+                      className="w-full p-2 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
+                    />
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1">Referral / Offer Link URL</label>
+                  <label className="block font-semibold text-slate-300 mb-1">Referral / Offer Link URL (Optional)</label>
                   <input
-                    type="url"
-                    required
+                    type="text"
                     value={formData.referralUrl}
                     onChange={e => setFormData({ ...formData, referralUrl: e.target.value })}
                     placeholder="https://example.com/referral?code=ROHIT350"
@@ -520,13 +576,12 @@ export const AdminAppsManager: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1">Short Description</label>
+                  <label className="block font-semibold text-slate-300 mb-1">Short Description (Optional)</label>
                   <input
                     type="text"
-                    required
                     value={formData.shortDescription}
                     onChange={e => setFormData({ ...formData, shortDescription: e.target.value })}
-                    placeholder="Brief 1-line overview"
+                    placeholder="Brief 1-line overview (optional)"
                     className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
                   />
                 </div>

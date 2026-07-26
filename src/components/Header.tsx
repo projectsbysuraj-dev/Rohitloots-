@@ -23,32 +23,29 @@ export const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
-      {/* Top Tricolor Strip */}
-      <div className="h-1 w-full bg-gradient-to-r from-[#FF8C00] via-[#0A66C2] to-[#138808]" />
+      {/* Top Strip */}
+      <div className="h-1 w-full bg-gradient-to-r from-[#FF8C00] via-[#0A66C2] to-[#0284c7]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Left: RL Logo & Brand Name */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
           {/* Logo Badge */}
           <div className="relative group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#138808] p-0.5 shadow-md group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#0284c7] p-0.5 shadow-md group-hover:scale-105 transition-transform">
               <div className="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
-                <span className="text-white font-extrabold text-lg tracking-wider font-mono">RL</span>
+                <span className="text-white font-extrabold text-lg tracking-wider font-mono">RT</span>
               </div>
             </div>
             {/* Ambient Glow */}
-            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#FF8C00] via-[#0A66C2] to-[#138808] opacity-30 blur-sm group-hover:opacity-60 transition-opacity -z-10" />
+            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#FF8C00] via-[#0A66C2] to-[#0284c7] opacity-30 blur-sm group-hover:opacity-60 transition-opacity -z-10" />
           </div>
 
           <div>
             <div className="flex items-center gap-2">
               <h1 className="font-bold text-lg sm:text-xl text-slate-900 tracking-tight flex items-center gap-1">
-                Rohit Loots
+                Rohit Tricks
                 <Sparkles className="w-4 h-4 text-[#FF8C00] fill-[#FF8C00]/20" />
               </h1>
-              <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-800 rounded-full border border-emerald-200">
-                Verified Offers
-              </span>
             </div>
             <p className="text-[11px] sm:text-xs text-slate-500 font-medium line-clamp-1">
               Find Best Buy & Sell Applications
@@ -61,12 +58,12 @@ export const Header: React.FC = () => {
           {/* Join Telegram Button */}
           <button
             onClick={() => toggleTelegramModal(true)}
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200 transition-colors"
+            className="hidden md:flex items-center gap-1.5 px-4 py-1.5 rounded-full btn-3d-green text-xs font-bold transition-all cursor-pointer"
             title="Join Telegram Channel"
           >
-            <Send className="w-3.5 h-3.5 text-[#0A66C2]" />
+            <Send className="w-3.5 h-3.5 text-white" />
             <span>Join Telegram</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
           </button>
 
           {/* Notification Icon */}
@@ -177,7 +174,7 @@ export const Header: React.FC = () => {
                       />
                       <div className="overflow-hidden">
                         <h4 className="font-semibold text-sm truncate">{currentUser?.name || 'Guest'}</h4>
-                        <p className="text-[11px] text-slate-300 truncate">{currentUser?.email || 'guest@rohitloots.com'}</p>
+                        <p className="text-[11px] text-slate-300 truncate">{currentUser?.email || 'guest@rohittricks.com'}</p>
                         <span className="inline-block mt-1 px-2 py-0.2 text-[9px] font-bold rounded-full bg-[#FF8C00] text-white uppercase tracking-wider">
                           {currentUser?.role || 'User'}
                         </span>
@@ -186,7 +183,7 @@ export const Header: React.FC = () => {
 
                     <div className="mt-3 pt-3 border-t border-slate-700/80 flex items-center justify-between text-xs">
                       <span className="text-slate-300">Total Earned:</span>
-                      <span className="font-bold text-emerald-400 text-sm">₹{currentUser?.totalEarned || 0}</span>
+                      <span className="font-bold text-sky-400 text-sm">₹{currentUser?.totalEarned || 0}</span>
                     </div>
                   </div>
 

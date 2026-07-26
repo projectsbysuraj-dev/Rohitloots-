@@ -28,7 +28,7 @@ export const CategorySection: React.FC<CategorySectionProps> = ({
       case 'daily':
         return <TrendingUp className="w-5 h-5 text-[#0A66C2]" />;
       case 'bonus':
-        return <Gift className="w-5 h-5 text-[#138808]" />;
+        return <Gift className="w-5 h-5 text-[#0284c7]" />;
     }
   };
 
@@ -39,7 +39,7 @@ export const CategorySection: React.FC<CategorySectionProps> = ({
       case 'daily':
         return 'bg-sky-100 text-sky-800 border-sky-200';
       case 'bonus':
-        return 'bg-emerald-100 text-emerald-800 border-emerald-200';
+        return 'bg-sky-100 text-sky-800 border-sky-200';
     }
   };
 
