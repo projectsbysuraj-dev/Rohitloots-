@@ -19,7 +19,7 @@ import { AdminAppsManager } from './components/admin/AdminAppsManager';
 import { AdminTelegramManager } from './components/admin/AdminTelegramManager';
 import { AdminSettings } from './components/admin/AdminSettings';
 
-import { Sparkles, Send, Shield, Gift, Zap, TrendingUp, Award, Clock, ArrowRight, CheckCircle2, Search, Share2, Copy, Check, Users, Wallet, Smartphone } from 'lucide-react';
+import { Sparkles, Send, Shield, Gift, Zap, TrendingUp, Award, Clock, ArrowRight, ArrowLeft, CheckCircle2, Search, Share2, Copy, Check, Users, Wallet, Smartphone } from 'lucide-react';
 import { motion } from 'motion/react';
 
 function AppContent() {
@@ -34,7 +34,8 @@ function AppContent() {
     selectedCategory,
     toggleTelegramModal,
     currentUser,
-    activities
+    activities,
+    isLoadingFirebase
   } = useApp();
 
   const [adminTab, setAdminTab] = useState('dashboard');
@@ -92,7 +93,15 @@ function AppContent() {
       <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* VIEW 1: Profile Tab (if active) */}
         {activeTab === 'profile' && (
-          <div className="max-w-2xl mx-auto space-y-6 my-4">
+          <div className="max-w-2xl mx-auto space-y-4 my-4">
+            <button
+              onClick={() => setActiveTab('home')}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white border border-slate-200 text-slate-800 hover:bg-slate-50 font-extrabold text-sm shadow-xs transition-all cursor-pointer group"
+            >
+              <ArrowLeft className="w-4 h-4 text-sky-600 group-hover:-translate-x-1 transition-transform" />
+              <span>Back to Home</span>
+            </button>
+
             <div className="p-6 rounded-3xl bg-white shadow-card border border-slate-100 text-center relative overflow-hidden">
               <div className="h-2 w-full bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 absolute top-0 left-0 right-0" />
               
@@ -103,18 +112,6 @@ function AppContent() {
               />
               <h2 className="text-xl font-extrabold text-slate-900">{currentUser?.name}</h2>
               <p className="text-xs text-slate-500 font-semibold">{currentUser?.email}</p>
-              
-              <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-sky-50 to-cyan-50 border border-sky-200/80 inline-flex items-center gap-4 text-center">
-                <div>
-                  <span className="block text-xs text-slate-600 font-semibold">Total Rewards Earned</span>
-                  <span className="text-2xl font-extrabold text-sky-600">₹{currentUser?.totalEarned || 0}</span>
-                </div>
-                <div className="w-px h-8 bg-sky-200" />
-                <div>
-                  <span className="block text-xs text-slate-600 font-semibold">Completed Claims</span>
-                  <span className="text-2xl font-extrabold text-slate-800">{currentUser?.claimsCount || 0}</span>
-                </div>
-              </div>
             </div>
           </div>
         )}
@@ -124,8 +121,22 @@ function AppContent() {
           <SearchBar />
         </div>
 
-        {/* If no published apps exist at all */}
-        {publishedApps.length === 0 ? (
+        {/* Loading Skeleton vs Published Apps Grid */}
+        {isLoadingFirebase ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 my-2">
+            {[1, 2, 3, 4].map(n => (
+              <div key={n} className="bg-white rounded-2xl p-3 border border-slate-100 animate-pulse space-y-2.5">
+                <div className="w-full h-24 sm:h-32 bg-slate-200 rounded-xl" />
+                <div className="space-y-2">
+                  <div className="h-3.5 bg-slate-200 rounded w-full" />
+                  <div className="h-3 bg-slate-100 rounded w-3/4" />
+                  <div className="h-3 bg-slate-100 rounded w-1/2" />
+                </div>
+                <div className="h-9 bg-slate-200 rounded-full w-full mt-2" />
+              </div>
+            ))}
+          </div>
+        ) : publishedApps.length === 0 ? (
           <div className="my-10 p-8 sm:p-12 text-center bg-white/90 backdrop-blur-md rounded-3xl border border-slate-200/80 shadow-card max-w-md mx-auto">
             <div className="w-14 h-14 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
               <Gift className="w-7 h-7" />

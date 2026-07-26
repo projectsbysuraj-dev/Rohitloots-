@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Bell, Shield, User as UserIcon, LogOut, Send, CheckCircle2, ChevronDown, Sparkles, LayoutDashboard, Smartphone } from 'lucide-react';
+import { Bell, Shield, User as UserIcon, LogOut, Send, CheckCircle2, ChevronDown, Sparkles, LayoutDashboard, Smartphone, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 import logoImg from '../assets/images/rohit_tricks_logo_1785071369631.jpg';
@@ -100,7 +100,18 @@ export const Header: React.FC = () => {
                 >
                   <div className="p-3 bg-slate-900 text-white flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Bell className="w-4 h-4 text-[#FF8C00]" />
+                      <button
+                        onClick={() => {
+                          setShowNotifDropdown(false);
+                          setActiveTab('home');
+                        }}
+                        className="p-1 px-2 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center gap-1 text-xs font-bold cursor-pointer transition-colors"
+                        title="Back to Home"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Back</span>
+                      </button>
+                      <Bell className="w-4 h-4 text-sky-400" />
                       <h3 className="text-sm font-semibold">Notifications</h3>
                     </div>
                     {notifications.length > 0 && (
@@ -171,6 +182,21 @@ export const Header: React.FC = () => {
                   className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-slate-100 z-50 overflow-hidden"
                 >
                   <div className="p-4 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+                    <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-700/60">
+                      <button
+                        onClick={() => {
+                          setShowProfileDropdown(false);
+                          setActiveTab('home');
+                        }}
+                        className="p-1 px-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 text-xs font-bold cursor-pointer transition-colors"
+                        title="Back to Home"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Back</span>
+                      </button>
+                      <span className="text-xs font-semibold text-slate-300">Account</span>
+                    </div>
+
                     <div className="flex items-center gap-3">
                       <img
                         src={currentUser?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80'}

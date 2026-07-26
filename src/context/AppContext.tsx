@@ -49,11 +49,11 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [apps, setApps] = useState<AppItem[]>(INITIAL_APPS);
-  const [users, setUsers] = useState<User[]>(INITIAL_USERS);
-  const [activities, setActivities] = useState<ClaimActivity[]>(INITIAL_ACTIVITIES);
+  const [apps, setApps] = useState<AppItem[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [activities, setActivities] = useState<ClaimActivity[]>([]);
   const [telegramConfig, setTelegramConfig] = useState<TelegramConfig>(INITIAL_TELEGRAM_CONFIG);
-  const [notifications, setNotifications] = useState<AppNotification[]>(INITIAL_NOTIFICATIONS);
+  const [notifications, setNotifications] = useState<AppNotification[]>([]);
   const [adminPassword, setAdminPassword] = useState<string>('adminrohit@123123');
   const [isLoadingFirebase, setIsLoadingFirebase] = useState<boolean>(true);
 
@@ -99,10 +99,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           : Object.values(val);
         setApps(appsList);
       } else {
-        // Seed initial apps into Firebase RTDB if empty
-        const initialAppsObj = INITIAL_APPS.reduce((acc, app) => ({ ...acc, [app.id]: app }), {});
-        set(ref(db, 'apps'), initialAppsObj);
-        setApps(INITIAL_APPS);
+        setApps([]);
       }
       setIsLoadingFirebase(false);
     }, (error) => {
@@ -120,9 +117,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           : Object.values(val);
         setUsers(usersList);
       } else {
-        const initialUsersObj = INITIAL_USERS.reduce((acc, u) => ({ ...acc, [u.id]: u }), {});
-        set(ref(db, 'users'), initialUsersObj);
-        setUsers(INITIAL_USERS);
+        setUsers([]);
       }
     });
 
@@ -138,9 +133,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         actList.sort((a, b) => (b.id > a.id ? 1 : -1));
         setActivities(actList);
       } else {
-        const initialActObj = INITIAL_ACTIVITIES.reduce((acc, a) => ({ ...acc, [a.id]: a }), {});
-        set(ref(db, 'activities'), initialActObj);
-        setActivities(INITIAL_ACTIVITIES);
+        setActivities([]);
       }
     });
 
@@ -166,9 +159,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         notifList.sort((a, b) => (b.id > a.id ? 1 : -1));
         setNotifications(notifList);
       } else {
-        const initialNotifObj = INITIAL_NOTIFICATIONS.reduce((acc, n) => ({ ...acc, [n.id]: n }), {});
-        set(ref(db, 'notifications'), initialNotifObj);
-        setNotifications(INITIAL_NOTIFICATIONS);
+        setNotifications([]);
       }
     });
 
