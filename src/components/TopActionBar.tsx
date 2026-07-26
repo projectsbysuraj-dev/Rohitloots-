@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Smartphone, Wallet, Headset, Send, Crown, Hourglass, ArrowDownCircle } from 'lucide-react';
+import { ClipboardList, Headset, Send, Crown, Hourglass, ArrowDownCircle } from 'lucide-react';
 
 interface TopActionBarProps {
   selectedTier: 'normal' | 'vip';
@@ -8,22 +8,46 @@ interface TopActionBarProps {
 }
 
 export const TopActionBar: React.FC<TopActionBarProps> = ({ selectedTier, onSelectTier }) => {
-  const { toggleTelegramModal, setActiveTab } = useApp();
+  const { toggleTelegramModal, setActiveTab, telegramConfig } = useApp();
+
+  const handleOpenSupport = () => {
+    let link = telegramConfig.supportLink || telegramConfig.channelLink || 'https://t.me/RohitTricksSupport';
+    if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
+      if (link.startsWith('@')) {
+        link = `https://t.me/${link.substring(1)}`;
+      } else {
+        link = `https://t.me/${link}`;
+      }
+    }
+    window.open(link, '_blank');
+  };
+
+  const handleOpenChannel = () => {
+    let link = telegramConfig.channelLink || 'https://t.me/RohitTricksOfficial';
+    if (link && !link.startsWith('http://') && !link.startsWith('https://')) {
+      if (link.startsWith('@')) {
+        link = `https://t.me/${link.substring(1)}`;
+      } else {
+        link = `https://t.me/${link}`;
+      }
+    }
+    window.open(link, '_blank');
+  };
 
   return (
-    <div className="w-full bg-[#0284c7] text-white pt-4 pb-4 px-4 sm:px-6 rounded-b-[24px] shadow-lg mb-4">
+    <div className="w-full bg-gradient-to-r from-[#0EA5E9] via-[#38BDF8] to-[#7DD3FC] text-white pt-5 pb-5 px-4 sm:px-6 rounded-b-[28px] shadow-xl mb-5">
       {/* 4 Action Pillar Buttons Row */}
-      <div className="grid grid-cols-4 gap-2 text-center max-w-md mx-auto mb-4">
-        {/* 1. Recharge */}
+      <div className="grid grid-cols-4 gap-3 text-center max-w-lg mx-auto mb-5">
+        {/* 1. Task */}
         <button
           onClick={() => toggleTelegramModal(true)}
           className="flex flex-col items-center justify-center group cursor-pointer"
         >
-          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-xs">
-            <Smartphone className="w-5 h-5 sm:w-6 sm:h-6" />
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-md">
+            <ClipboardList className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
-          <span className="text-xs sm:text-sm font-bold text-white mt-1.5 tracking-tight">
-            Recharge
+          <span className="text-xs sm:text-sm font-extrabold text-white mt-2 tracking-tight">
+            Task
           </span>
         </button>
 
@@ -32,64 +56,64 @@ export const TopActionBar: React.FC<TopActionBarProps> = ({ selectedTier, onSele
           onClick={() => setActiveTab('profile')}
           className="flex flex-col items-center justify-center group cursor-pointer"
         >
-          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-xs">
-            <ArrowDownCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-md">
+            <ArrowDownCircle className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
-          <span className="text-xs sm:text-sm font-bold text-white mt-1.5 tracking-tight">
+          <span className="text-xs sm:text-sm font-extrabold text-white mt-2 tracking-tight">
             Withdraw
           </span>
         </button>
 
-        {/* 3. Service */}
+        {/* 3. Service (Custom Admin Telegram Link) */}
         <button
-          onClick={() => toggleTelegramModal(true)}
+          onClick={handleOpenSupport}
           className="flex flex-col items-center justify-center group cursor-pointer"
         >
-          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-xs">
-            <Headset className="w-5 h-5 sm:w-6 sm:h-6" />
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-md">
+            <Headset className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
-          <span className="text-xs sm:text-sm font-bold text-white mt-1.5 tracking-tight">
+          <span className="text-xs sm:text-sm font-extrabold text-white mt-2 tracking-tight">
             Service
           </span>
         </button>
 
         {/* 4. Channel */}
         <button
-          onClick={() => toggleTelegramModal(true)}
+          onClick={handleOpenChannel}
           className="flex flex-col items-center justify-center group cursor-pointer"
         >
-          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-xs">
-            <Send className="w-5 h-5 sm:w-6 sm:h-6" />
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-md">
+            <Send className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
-          <span className="text-xs sm:text-sm font-bold text-white mt-1.5 tracking-tight">
+          <span className="text-xs sm:text-sm font-extrabold text-white mt-2 tracking-tight">
             Channel
           </span>
         </button>
       </div>
 
       {/* Normal vs VIP Tab Switcher */}
-      <div className="max-w-md mx-auto p-1 bg-black/20 rounded-full flex items-center border border-white/15">
+      <div className="max-w-md mx-auto p-1.5 bg-black/20 rounded-full flex items-center border border-white/20 shadow-inner">
         <button
           onClick={() => onSelectTier('normal')}
-          className={`flex-1 py-2.5 px-4 rounded-full font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 py-3 px-5 rounded-full font-black text-sm sm:text-base flex items-center justify-center gap-2 transition-all cursor-pointer ${
             selectedTier === 'normal'
-              ? 'bg-gradient-to-r from-sky-400 to-sky-600 text-white shadow-md border border-white/30'
+              ? 'bg-gradient-to-r from-sky-400 to-sky-600 text-white shadow-lg border border-white/40'
               : 'text-white/80 hover:text-white'
           }`}
         >
-          <Hourglass className="w-4 h-4 text-sky-100" />
+          <Hourglass className="w-4 h-4 sm:w-5 sm:h-5 text-sky-100" />
           <span>Normal</span>
         </button>
 
         <button
           onClick={() => onSelectTier('vip')}
-          className={`flex-1 py-2.5 px-4 rounded-full font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 py-3 px-5 rounded-full font-black text-sm sm:text-base flex items-center justify-center gap-2 transition-all cursor-pointer ${
             selectedTier === 'vip'
-              ? 'bg-gradient-to-r from-amber-400 to-amber-600 text-white shadow-md border border-amber-200/50'
+              ? 'bg-gradient-to-r from-amber-400 to-amber-600 text-white shadow-lg border border-amber-200/50'
               : 'text-white/80 hover:text-white'
           }`}
         >
-          <Crown className="w-4 h-4 text-amber-200" />
+          <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200" />
           <span>VIP</span>
         </button>
       </div>

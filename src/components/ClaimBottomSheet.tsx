@@ -53,12 +53,12 @@ export const ClaimBottomSheet: React.FC = () => {
           </div>
 
           {/* Sheet Header */}
-          <div className="p-4 sm:p-6 bg-gradient-to-r from-orange-50/50 via-sky-50/30 to-sky-50/50 border-b border-slate-100 relative">
+          <div className="p-4 sm:p-6 bg-gradient-to-r from-sky-50/70 via-sky-100/40 to-sky-50/70 border-b border-slate-100 relative">
             <button
               onClick={() => setSelectedAppForClaim(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-slate-200/60 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
+              className="absolute top-4 right-4 p-2 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-700 transition-colors cursor-pointer"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-start gap-4">
@@ -72,16 +72,16 @@ export const ClaimBottomSheet: React.FC = () => {
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-4 ring-white shadow-md bg-slate-100"
               />
               <div className="flex-1 pr-6">
-                <span className="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[11px] font-bold border border-sky-200">
+                <span className="px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold border border-sky-200">
                   {selectedAppForClaim.categoryLabel || 'Verified Buy & Sell App'}
                 </span>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1.5">
                   {selectedAppForClaim.name}
                 </h2>
                 
                 {/* Big Reward Tag */}
-                <div className="inline-flex items-center gap-2 mt-2 px-3 py-1 bg-gradient-to-r from-[#FF8C00] to-[#E07B00] text-white rounded-xl font-extrabold text-base shadow-sm">
-                  <Gift className="w-4 h-4" />
+                <div className="inline-flex items-center gap-2 mt-2 px-3.5 py-1.5 bg-gradient-to-r from-sky-500 to-sky-600 text-white rounded-xl font-black text-base sm:text-lg shadow-sm">
+                  <Gift className="w-5 h-5" />
                   <span>{formatDisplayAmount(selectedAppForClaim.rewardAmount, '350')} Cashback Reward</span>
                 </div>
               </div>
@@ -92,11 +92,11 @@ export const ClaimBottomSheet: React.FC = () => {
           <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 text-slate-800">
             {/* App Description */}
             <div className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-100">
-              <h3 className="text-sm font-bold text-slate-900 mb-2 flex items-center gap-1.5">
-                <FileText className="w-4 h-4 text-[#FF8C00]" />
+              <h3 className="text-base font-extrabold text-slate-900 mb-2 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-sky-600" />
                 Description
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
                 {selectedAppForClaim.fullDescription || selectedAppForClaim.shortDescription}
               </p>
             </div>
@@ -106,13 +106,13 @@ export const ClaimBottomSheet: React.FC = () => {
           <div className="p-4 sm:p-5 bg-white border-t border-slate-100 shadow-2xl">
             <button
               onClick={handleOpenReferralWebsite}
-              className="w-full py-4 px-6 rounded-full btn-3d-sky text-white font-black text-base sm:text-lg flex items-center justify-center gap-3 cursor-pointer group"
+              className="w-full py-4 px-6 rounded-full btn-3d-blue text-white font-black text-base sm:text-xl flex items-center justify-center gap-3 cursor-pointer group"
             >
-              <Gift className="w-5 h-5 text-white shrink-0" />
+              <Gift className="w-6 h-6 text-white shrink-0" />
               <span>Open Website & Claim {formatDisplayAmount(selectedAppForClaim.rewardAmount, '350')}</span>
-              <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform shrink-0" />
+              <ExternalLink className="w-6 h-6 group-hover:translate-x-1 transition-transform shrink-0" />
             </button>
-            <p className="text-[11px] text-center text-slate-400 mt-2 font-medium">
+            <p className="text-xs text-center text-slate-500 mt-2.5 font-semibold">
               🔒 100% Verified Referral Link • Direct Cashback Guarantee
             </p>
           </div>

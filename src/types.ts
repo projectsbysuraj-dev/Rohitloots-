@@ -60,6 +60,7 @@ export interface TelegramConfig {
   description: string;
   channelLink: string;
   channelName: string;
+  supportLink?: string;
   buttonText: string;
   memberCount: string;
 }

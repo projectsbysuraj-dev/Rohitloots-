@@ -94,19 +94,34 @@ export const AdminTelegramManager: React.FC = () => {
             />
           </div>
 
-          {/* Link */}
+          {/* Links */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block font-semibold text-slate-300 mb-1">Telegram Channel URL</label>
               <input
-                type="url"
+                type="text"
                 required
+                placeholder="https://t.me/RohitTricksOfficial"
                 value={formData.channelLink}
                 onChange={e => setFormData({ ...formData, channelLink: e.target.value })}
-                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
+                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-sky-500"
               />
             </div>
 
+            <div>
+              <label className="block font-semibold text-slate-300 mb-1">Customer Service Telegram ID / Link (Service Icon)</label>
+              <input
+                type="text"
+                placeholder="https://t.me/RohitTricksSupport or @RohitTricksSupport"
+                value={formData.supportLink || ''}
+                onChange={e => setFormData({ ...formData, supportLink: e.target.value })}
+                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-sky-500"
+              />
+              <p className="text-[10px] text-slate-400 mt-1">When users click "Service" on top bar, this support link opens.</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block font-semibold text-slate-300 mb-1">Primary Button Text</label>
               <input
@@ -114,20 +129,19 @@ export const AdminTelegramManager: React.FC = () => {
                 required
                 value={formData.buttonText}
                 onChange={e => setFormData({ ...formData, buttonText: e.target.value })}
-                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
+                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-sky-500"
               />
             </div>
-          </div>
 
-          {/* Member Count */}
-          <div>
-            <label className="block font-semibold text-slate-300 mb-1">Member Count Display Badge</label>
-            <input
-              type="text"
-              value={formData.memberCount}
-              onChange={e => setFormData({ ...formData, memberCount: e.target.value })}
-              className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-[#FF8C00]"
-            />
+            <div>
+              <label className="block font-semibold text-slate-300 mb-1">Member Count Display Badge</label>
+              <input
+                type="text"
+                value={formData.memberCount}
+                onChange={e => setFormData({ ...formData, memberCount: e.target.value })}
+                className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-sky-500"
+              />
+            </div>
           </div>
 
           {/* Save Button */}

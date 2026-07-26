@@ -108,25 +108,25 @@ function AppContent() {
                 alt={currentUser?.name}
                 className="w-20 h-20 rounded-full object-cover ring-4 ring-sky-500/30 mx-auto mb-3"
               />
-              <h2 className="text-xl font-extrabold text-slate-900">{currentUser?.name}</h2>
-              <p className="text-xs text-slate-500">{currentUser?.email}</p>
+              <h2 className="text-2xl font-extrabold text-slate-900">{currentUser?.name}</h2>
+              <p className="text-sm text-slate-500 font-semibold">{currentUser?.email}</p>
               
-              <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-sky-50 to-cyan-50 border border-sky-200/80 inline-flex items-center gap-3 text-center">
+              <div className="mt-5 p-5 rounded-2xl bg-gradient-to-r from-sky-50 to-cyan-50 border border-sky-200/80 inline-flex items-center gap-4 text-center">
                 <div>
-                  <span className="block text-[11px] text-slate-500 font-medium">Total Rewards Earned</span>
-                  <span className="text-2xl font-extrabold text-sky-600">₹{currentUser?.totalEarned || 0}</span>
+                  <span className="block text-xs text-slate-600 font-semibold">Total Rewards Earned</span>
+                  <span className="text-3xl font-extrabold text-sky-600">₹{currentUser?.totalEarned || 0}</span>
                 </div>
-                <div className="w-px h-8 bg-sky-200" />
+                <div className="w-px h-10 bg-sky-200" />
                 <div>
-                  <span className="block text-[11px] text-slate-500 font-medium">Completed Claims</span>
-                  <span className="text-2xl font-extrabold text-slate-800">{currentUser?.claimsCount || 0}</span>
+                  <span className="block text-xs text-slate-600 font-semibold">Completed Claims</span>
+                  <span className="text-3xl font-extrabold text-slate-800">{currentUser?.claimsCount || 0}</span>
                 </div>
               </div>
             </div>
 
             {/* My Claims History */}
             <div className="p-6 rounded-3xl bg-white shadow-card border border-slate-100">
-              <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <Gift className="w-5 h-5 text-sky-600" />
                 My Claim History
               </h3>
@@ -134,7 +134,7 @@ function AppContent() {
               <div className="space-y-3">
                 {activities.filter(act => act.userId === currentUser?.id).length > 0 ? (
                   activities.filter(act => act.userId === currentUser?.id).map(act => (
-                    <div key={act.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between gap-3 text-xs">
+                    <div key={act.id} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between gap-3 text-sm">
                       <div className="flex items-center gap-3">
                         <img 
                           src={cleanImageUrl(act.appLogo)} 
@@ -143,16 +143,16 @@ function AppContent() {
                           onError={(e) => {
                             (e.target as HTMLImageElement).src = FALLBACK_APP_LOGO;
                           }}
-                          className="w-10 h-10 rounded-xl object-cover ring-1 ring-slate-200" 
+                          className="w-11 h-11 rounded-xl object-cover ring-1 ring-slate-200" 
                         />
                         <div>
-                          <h4 className="font-bold text-slate-900">{act.appName}</h4>
-                          <span className="text-[10px] text-slate-400">{act.date}</span>
+                          <h4 className="font-bold text-slate-900 text-base">{act.appName}</h4>
+                          <span className="text-xs text-slate-400 font-medium">{act.date}</span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-sm font-extrabold text-sky-600 block">+₹{act.rewardAmount}</span>
-                        <span className="text-[10px] font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded-full">
+                        <span className="text-base font-extrabold text-sky-600 block">+₹{act.rewardAmount}</span>
+                        <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2.5 py-0.5 rounded-full">
                           {act.status}
                         </span>
                       </div>
@@ -160,8 +160,8 @@ function AppContent() {
                   ))
                 ) : (
                   <div className="text-center py-8 text-slate-400">
-                    <p className="text-xs font-semibold text-slate-500">Abhi tak koi claim history nahi hai.</p>
-                    <p className="text-[11px] text-slate-400 mt-1">Apps claim karke cashback earning track karein!</p>
+                    <p className="text-sm font-semibold text-slate-600">Abhi tak koi claim history nahi hai.</p>
+                    <p className="text-xs text-slate-400 mt-1">Apps claim karke cashback earning track karein!</p>
                   </div>
                 )}
               </div>
@@ -169,100 +169,8 @@ function AppContent() {
           </div>
         )}
 
-        {/* VIEW 2: Share / Refer View */}
-        {activeTab === 'share' && (
-          <div className="max-w-2xl mx-auto my-6 space-y-6">
-            <div className="p-6 sm:p-8 rounded-3xl bg-white shadow-xl border border-slate-200 text-center space-y-4">
-              <div className="w-16 h-16 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
-                <Share2 className="w-8 h-8" />
-              </div>
-              <h2 className="text-2xl font-black text-slate-900">Invite Friends & Earn Commission</h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
-                Share your invitation link to earn up to 3 tiers of team commissions: <strong className="text-sky-600">Level 1 (25%)</strong>, <strong>Level 2 (3%)</strong>, and <strong>Level 3 (2%)</strong>!
-              </p>
-
-              {/* Referral Link Box */}
-              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between gap-2 text-xs sm:text-sm">
-                <span className="font-mono text-slate-700 truncate font-semibold px-2">{referLink}</span>
-                <button
-                  onClick={handleCopyLink}
-                  className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl flex items-center gap-1.5 shrink-0 transition-all cursor-pointer shadow-md"
-                >
-                  {copiedLink ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4 text-white" />}
-                  <span>{copiedLink ? 'Copied!' : 'Copy Link'}</span>
-                </button>
-              </div>
-
-              {/* Commission Tier Cards */}
-              <div className="grid grid-cols-3 gap-3 pt-2 text-center">
-                <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100">
-                  <span className="block text-[11px] font-bold text-sky-800">Level 1</span>
-                  <span className="text-xl font-black text-sky-600">25%</span>
-                  <span className="block text-[10px] text-slate-500">Direct Refer</span>
-                </div>
-                <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100">
-                  <span className="block text-[11px] font-bold text-sky-800">Level 2</span>
-                  <span className="text-xl font-black text-sky-600">3%</span>
-                  <span className="block text-[10px] text-slate-500">Secondary</span>
-                </div>
-                <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100">
-                  <span className="block text-[11px] font-bold text-sky-800">Level 3</span>
-                  <span className="text-xl font-black text-sky-600">2%</span>
-                  <span className="block text-[10px] text-slate-500">Tertiary</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* VIEW 3: Team View */}
-        {activeTab === 'team' && (
-          <div className="max-w-2xl mx-auto my-6 space-y-6">
-            <div className="p-6 sm:p-8 rounded-3xl bg-white shadow-xl border border-slate-200 space-y-5">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center">
-                  <Users className="w-6 h-6" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-black text-slate-900">My Team Dashboard</h2>
-                  <p className="text-xs text-slate-500">Track your referral team members and total commission</p>
-                </div>
-              </div>
-
-              {/* Summary Metrics */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-center">
-                  <span className="text-xs text-slate-500 font-semibold block">Total Team Members</span>
-                  <span className="text-2xl font-black text-slate-900 mt-1 block">12 Members</span>
-                </div>
-                <div className="p-4 bg-sky-50 rounded-2xl border border-sky-200 text-center">
-                  <span className="text-xs text-sky-800 font-semibold block">Total Team Commission</span>
-                  <span className="text-2xl font-black text-sky-600 mt-1 block">₹1,450</span>
-                </div>
-              </div>
-
-              {/* Team Breakdown Table */}
-              <div className="space-y-3">
-                <h3 className="text-sm font-extrabold text-slate-800">Team Commission Structure</h3>
-                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-semibold">
-                  <span>Level 1 (25% Direct Commission)</span>
-                  <span className="text-sky-600 font-bold">8 Members</span>
-                </div>
-                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-semibold">
-                  <span>Level 2 (3% Secondary Commission)</span>
-                  <span className="text-sky-600 font-bold">3 Members</span>
-                </div>
-                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-semibold">
-                  <span>Level 3 (2% Tertiary Commission)</span>
-                  <span className="text-sky-600 font-bold">1 Member</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* VIEW 4: Home View (Product Cards Grid) */}
-        {activeTab === 'home' && (
+        {/* VIEW 2: Home View (Product Cards Grid) */}
+        {(activeTab === 'home' || (activeTab !== 'profile' && activeTab !== 'home')) && (
           <>
             {/* Search Bar */}
             <div className="mb-4">

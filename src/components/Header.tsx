@@ -26,14 +26,14 @@ export const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
       {/* Top Strip */}
-      <div className="h-1 w-full bg-gradient-to-r from-[#FF8C00] via-[#0A66C2] to-[#0284c7]" />
+      <div className="h-1.5 w-full bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Left: RL Logo & Brand Name */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
           {/* Logo Badge */}
           <div className="relative group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#0284c7] p-0.5 shadow-md group-hover:scale-105 transition-transform overflow-hidden">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-400 via-sky-500 to-sky-600 p-0.5 shadow-md group-hover:scale-105 transition-transform overflow-hidden">
               <img 
                 src={logoImg} 
                 alt="Rohit Tricks Logo" 
@@ -42,17 +42,17 @@ export const Header: React.FC = () => {
               />
             </div>
             {/* Ambient Glow */}
-            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#FF8C00] via-[#0A66C2] to-[#0284c7] opacity-30 blur-sm group-hover:opacity-60 transition-opacity -z-10" />
+            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 opacity-40 blur-sm group-hover:opacity-70 transition-opacity -z-10" />
           </div>
 
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="font-bold text-lg sm:text-xl text-slate-900 tracking-tight flex items-center gap-1">
+              <h1 className="font-extrabold text-xl sm:text-2xl text-slate-900 tracking-tight flex items-center gap-1.5">
                 Rohit Tricks
-                <Sparkles className="w-4 h-4 text-[#FF8C00] fill-[#FF8C00]/20" />
+                <Sparkles className="w-4 h-4 text-sky-500 fill-sky-500/20" />
               </h1>
             </div>
-            <p className="text-[11px] sm:text-xs text-slate-500 font-medium line-clamp-1">
+            <p className="text-xs sm:text-sm text-slate-500 font-semibold line-clamp-1">
               Find Best Buy & Sell Applications
             </p>
           </div>
@@ -63,10 +63,10 @@ export const Header: React.FC = () => {
           {/* Join Telegram Button */}
           <button
             onClick={() => toggleTelegramModal(true)}
-            className="hidden md:flex items-center gap-1.5 px-4 py-1.5 rounded-full btn-3d-green text-xs font-bold transition-all cursor-pointer"
+            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full btn-3d-blue text-xs sm:text-sm font-extrabold transition-all cursor-pointer"
             title="Join Telegram Channel"
           >
-            <Send className="w-3.5 h-3.5 text-white" />
+            <Send className="w-4 h-4 text-white" />
             <span>Join Telegram</span>
             <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
           </button>
@@ -199,10 +199,10 @@ export const Header: React.FC = () => {
                           setShowProfileDropdown(false);
                           setViewMode('admin');
                         }}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-[#FF8C00] bg-orange-50 hover:bg-orange-100 rounded-xl transition-colors"
+                        className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-sm font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-xl transition-colors"
                       >
-                        <Shield className="w-4 h-4 text-[#FF8C00]" />
-                        <span>Admin Control Panel</span>
+                        <Shield className="w-4 h-4 text-sky-600" />
+                        <span>#</span>
                       </button>
                     ) : (
                       <button
@@ -210,10 +210,10 @@ export const Header: React.FC = () => {
                           setShowProfileDropdown(false);
                           window.dispatchEvent(new Event('openAdminLoginModal'));
                         }}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+                        className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-sm font-bold text-slate-800 hover:bg-slate-100 rounded-xl transition-colors"
                       >
-                        <Shield className="w-4 h-4 text-[#FF8C00]" />
-                        <span>Admin Login</span>
+                        <Shield className="w-4 h-4 text-sky-600" />
+                        <span>#</span>
                       </button>
                     )}
 

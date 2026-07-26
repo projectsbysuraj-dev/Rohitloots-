@@ -401,6 +401,7 @@ export const INITIAL_TELEGRAM_CONFIG: TelegramConfig = {
   description: 'UPI Rewards & Daily Loots',
   channelLink: 'https://t.me/RohitTricksOfficial',
   channelName: '@RohitTricksOfficial',
+  supportLink: 'https://t.me/RohitTricksSupport',
   buttonText: 'Join Our Telegram Community',
   memberCount: '145,000+ Active Members'
 };

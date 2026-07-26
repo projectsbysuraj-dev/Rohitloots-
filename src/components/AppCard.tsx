@@ -50,43 +50,43 @@ export const AppCard: React.FC<AppCardProps> = ({ app }) => {
       </div>
 
       {/* Product Details Grid */}
-      <div className="p-3.5 space-y-2 text-xs sm:text-sm">
+      <div className="p-3.5 sm:p-4 space-y-2 text-xs sm:text-sm">
         {/* Row 1: Sign up bonus */}
-        <div className="flex items-center justify-between text-slate-500 font-medium">
+        <div className="flex items-center justify-between text-slate-600 font-semibold">
           <span>Sign up bonus</span>
-          <span className="font-extrabold text-sky-600">{formatDisplayAmount(app.signUpBonus, '20')}</span>
+          <span className="font-extrabold text-sky-600 text-sm">{formatDisplayAmount(app.signUpBonus, '20')}</span>
         </div>
 
         {/* Row 2: Minimum deposit */}
-        <div className="flex items-center justify-between text-slate-500 font-medium">
+        <div className="flex items-center justify-between text-slate-600 font-semibold">
           <span>Minimum deposit</span>
-          <span className="font-extrabold text-slate-900">{formatDisplayAmount(app.minDeposit, '1980')}</span>
+          <span className="font-extrabold text-slate-900 text-sm">{formatDisplayAmount(app.minDeposit, '1980')}</span>
         </div>
 
         {/* Row 3: Minimum withdrawal */}
-        <div className="flex items-center justify-between text-slate-500 font-medium">
+        <div className="flex items-center justify-between text-slate-600 font-semibold">
           <span>Minimum withdrawal</span>
-          <span className="font-extrabold text-slate-900">{formatDisplayAmount(app.minWithdrawal, '120')}</span>
+          <span className="font-extrabold text-slate-900 text-sm">{formatDisplayAmount(app.minWithdrawal, '120')}</span>
         </div>
 
         {/* Row 4: Total earning */}
-        <div className="flex items-center justify-between text-slate-500 font-medium">
+        <div className="flex items-center justify-between text-slate-600 font-semibold">
           <span>Total earning</span>
-          <span className="font-extrabold text-sky-600">{formatDisplayAmount(app.totalEarning, '23760')}</span>
+          <span className="font-extrabold text-sky-600 text-sm">{formatDisplayAmount(app.totalEarning, '23760')}</span>
         </div>
 
         {/* Row 5: Rewards */}
-        <div className="flex items-center justify-between text-slate-500 font-medium border-t border-slate-100 pt-1.5">
+        <div className="flex items-center justify-between text-slate-600 font-semibold border-t border-slate-100 pt-2">
           <span>Rewards</span>
-          <span className="font-black text-sky-600 text-sm">{formatDisplayAmount(app.rewardAmount, '350')}</span>
+          <span className="font-black text-sky-600 text-base">{formatDisplayAmount(app.rewardAmount, '350')}</span>
         </div>
 
-        {/* Large 3D Green Pill Action Button */}
+        {/* Large 3D Sky Blue Pill Action Button */}
         <button
           onClick={() => setSelectedAppForClaim(app)}
-          className="w-full py-2.5 px-4 rounded-full btn-3d-green text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer transition-all shadow-md active:scale-95 group mt-2"
+          className="w-full py-3 px-4 rounded-full btn-3d-blue text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer transition-all shadow-md active:scale-95 group mt-3"
         >
-          <Gift className="w-4 h-4 text-white shrink-0" />
+          <Gift className="w-5 h-5 text-white shrink-0" />
           <span>Claim Now</span>
         </button>
       </div>

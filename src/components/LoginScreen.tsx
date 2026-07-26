@@ -176,12 +176,12 @@ export const LoginScreen: React.FC = () => {
           {/* 3D Sky Blue Login Button */}
           <button
             type="submit"
-            className="w-full mt-2 py-3 px-4 rounded-full btn-3d-sky font-bold text-sm tracking-wide flex items-center justify-center gap-2 group cursor-pointer"
+            className="w-full mt-3 py-3.5 px-4 rounded-full btn-3d-blue font-extrabold text-base tracking-wide flex items-center justify-center gap-2 group cursor-pointer"
           >
             <span>
               {mode === 'login' ? 'Login Now' : mode === 'register' ? 'Create Free Account' : 'Reset Password'}
             </span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
 
