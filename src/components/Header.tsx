@@ -47,12 +47,12 @@ export const Header: React.FC = () => {
 
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-xl sm:text-2xl text-slate-900 tracking-tight flex items-center gap-1.5">
+              <h1 className="font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight flex items-center gap-1.5">
                 Rohit Tricks
-                <Sparkles className="w-4 h-4 text-sky-500 fill-sky-500/20" />
+                <Sparkles className="w-5 h-5 text-sky-500 fill-sky-500/20" />
               </h1>
             </div>
-            <p className="text-xs sm:text-sm text-slate-500 font-semibold line-clamp-1">
+            <p className="text-sm sm:text-base text-slate-600 font-bold line-clamp-1">
               Find Best Buy & Sell Applications
             </p>
           </div>
@@ -63,12 +63,12 @@ export const Header: React.FC = () => {
           {/* Join Telegram Button */}
           <button
             onClick={() => toggleTelegramModal(true)}
-            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full btn-3d-blue text-xs sm:text-sm font-extrabold transition-all cursor-pointer"
+            className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full btn-3d-blue text-sm sm:text-base font-extrabold transition-all cursor-pointer"
             title="Join Telegram Channel"
           >
-            <Send className="w-4 h-4 text-white" />
+            <Send className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             <span>Join Telegram</span>
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
           </button>
 
           {/* Notification Icon */}

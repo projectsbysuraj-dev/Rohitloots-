@@ -22,15 +22,15 @@ export const SearchBar: React.FC = () => {
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             placeholder="Search Applications..."
-            className="w-full pl-9 pr-8 py-2 rounded-xl bg-white shadow-xs border border-slate-200 text-xs font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF8C00]/50 focus:border-[#FF8C00] transition-all"
+            className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white shadow-xs border border-slate-200 text-base font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-all"
           />
-          <Search className="w-4 h-4 text-slate-400 absolute left-3" />
+          <Search className="w-5 h-5 text-slate-400 absolute left-3.5" />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="p-1 rounded-full hover:bg-slate-100 text-slate-400 absolute right-2.5"
+              className="p-1 rounded-full hover:bg-slate-100 text-slate-400 absolute right-3"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>
@@ -46,13 +46,13 @@ export const SearchBar: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-4.5 py-2.5 rounded-2xl text-sm font-extrabold whitespace-nowrap transition-all cursor-pointer ${
                 isSelected
                   ? 'bg-slate-900 text-white shadow-md shadow-slate-900/10 scale-105'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80'
+                  : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#FF8C00]' : 'text-slate-400'}`} />
+              <Icon className={`w-4 h-4 ${isSelected ? 'text-sky-400' : 'text-slate-400'}`} />
               <span>{cat.label}</span>
             </button>
           );

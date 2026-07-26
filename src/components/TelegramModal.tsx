@@ -48,11 +48,11 @@ export const TelegramModal: React.FC = () => {
           <div className="p-6 bg-white space-y-4">
             <button
               onClick={handleJoinTelegram}
-              className="w-full py-4 px-6 rounded-full btn-3d-sky text-white font-black text-base sm:text-lg tracking-wide flex items-center justify-center gap-2.5 cursor-pointer transition-all shadow-xl shadow-sky-600/30 active:scale-95 group"
+              className="w-full py-4 px-6 rounded-full btn-3d-blue text-white font-black text-lg sm:text-xl tracking-wide flex items-center justify-center gap-2.5 cursor-pointer transition-all shadow-xl shadow-sky-600/30 active:scale-95 group"
             >
-              <Send className="w-5 h-5 text-white fill-white/20 group-hover:translate-x-0.5 transition-transform shrink-0" />
+              <Send className="w-6 h-6 text-white fill-white/20 group-hover:translate-x-0.5 transition-transform shrink-0" />
               <span className="text-center">{telegramConfig.buttonText || 'Join Our Telegram Community'}</span>
-              <ExternalLink className="w-4 h-4 text-white/80 shrink-0" />
+              <ExternalLink className="w-5 h-5 text-white/80 shrink-0" />
             </button>
           </div>
         </motion.div>

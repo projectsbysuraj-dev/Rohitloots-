@@ -18,8 +18,8 @@ export const BottomNav: React.FC = () => {
             activeTab === 'home' ? 'text-sky-600 font-black scale-105' : 'text-slate-500 hover:text-slate-800 font-bold'
           }`}
         >
-          <Home className={`w-6 h-6 ${activeTab === 'home' ? 'text-sky-600' : ''}`} />
-          <span className="text-xs mt-1 tracking-tight font-extrabold">Home</span>
+          <Home className={`w-7 h-7 ${activeTab === 'home' ? 'text-sky-600' : ''}`} />
+          <span className="text-sm mt-1 tracking-tight font-black">Home</span>
         </button>
 
         {/* Item 2: Center Floating Action (Telegram) */}
@@ -43,8 +43,8 @@ export const BottomNav: React.FC = () => {
             activeTab === 'profile' ? 'text-sky-600 font-black scale-105' : 'text-slate-500 hover:text-slate-800 font-bold'
           }`}
         >
-          <User className={`w-6 h-6 ${activeTab === 'profile' ? 'text-sky-600' : ''}`} />
-          <span className="text-xs mt-1 tracking-tight font-extrabold">Profile</span>
+          <User className={`w-7 h-7 ${activeTab === 'profile' ? 'text-sky-600' : ''}`} />
+          <span className="text-sm mt-1 tracking-tight font-black">Profile</span>
         </button>
       </div>
     </nav>

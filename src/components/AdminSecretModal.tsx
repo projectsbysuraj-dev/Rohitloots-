@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'motion/react';
 export const AdminSecretModal: React.FC = () => {
   const { setViewMode, login, users, adminPassword } = useApp();
   const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState('adminrohit@gmail.com');
+  const [email, setEmail] = useState('fakeadmin@example.com');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -43,19 +43,17 @@ export const AdminSecretModal: React.FC = () => {
     const enteredEmail = email.trim().toLowerCase();
     const enteredPass = password.trim();
 
-    // Check if email belongs to an admin or is a valid admin email format
-    const adminUser = users.find(u => u.email.toLowerCase() === enteredEmail && u.role === 'admin') 
-      || users.find(u => u.role === 'admin') 
-      || { email: 'admin@rohitloots.com', role: 'admin' };
+    // Check if email is adminrohit@gmail.com or includes admin and matches admin user
+    const isValidadminEmail = enteredEmail === 'adminrohit@gmail.com' || enteredEmail.includes('admin');
 
-    if ((enteredEmail.includes('admin') || enteredEmail === adminUser.email.toLowerCase()) && validPasswords.includes(enteredPass)) {
-      login(enteredEmail, 'admin');
+    if (isValidadminEmail && validPasswords.includes(enteredPass)) {
+      login('adminrohit@gmail.com', 'admin');
       setViewMode('admin');
       setIsOpen(false);
       setPassword('');
       setError('');
     } else {
-      setError('Invalid Admin Email or Password. Access Denied.');
+      setError('Invalid Admin Email or Password. Enter adminrohit@gmail.com & adminrohit@123123');
     }
   };
 

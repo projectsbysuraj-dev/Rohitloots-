@@ -46,7 +46,7 @@ export const TopActionBar: React.FC<TopActionBarProps> = ({ selectedTier, onSele
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-md">
             <ClipboardList className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
-          <span className="text-xs sm:text-sm font-extrabold text-white mt-2 tracking-tight">
+          <span className="text-sm sm:text-base font-extrabold text-white mt-2 tracking-tight">
             Task
           </span>
         </button>
@@ -59,7 +59,7 @@ export const TopActionBar: React.FC<TopActionBarProps> = ({ selectedTier, onSele
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-md">
             <ArrowDownCircle className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
-          <span className="text-xs sm:text-sm font-extrabold text-white mt-2 tracking-tight">
+          <span className="text-sm sm:text-base font-extrabold text-white mt-2 tracking-tight">
             Withdraw
           </span>
         </button>
@@ -72,7 +72,7 @@ export const TopActionBar: React.FC<TopActionBarProps> = ({ selectedTier, onSele
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-md">
             <Headset className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
-          <span className="text-xs sm:text-sm font-extrabold text-white mt-2 tracking-tight">
+          <span className="text-sm sm:text-base font-extrabold text-white mt-2 tracking-tight">
             Service
           </span>
         </button>
@@ -85,7 +85,7 @@ export const TopActionBar: React.FC<TopActionBarProps> = ({ selectedTier, onSele
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:scale-105 group-active:scale-95 transition-all shadow-md">
             <Send className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
-          <span className="text-xs sm:text-sm font-extrabold text-white mt-2 tracking-tight">
+          <span className="text-sm sm:text-base font-extrabold text-white mt-2 tracking-tight">
             Channel
           </span>
         </button>
@@ -95,25 +95,25 @@ export const TopActionBar: React.FC<TopActionBarProps> = ({ selectedTier, onSele
       <div className="max-w-md mx-auto p-1.5 bg-black/20 rounded-full flex items-center border border-white/20 shadow-inner">
         <button
           onClick={() => onSelectTier('normal')}
-          className={`flex-1 py-3 px-5 rounded-full font-black text-sm sm:text-base flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 py-3 px-5 rounded-full font-black text-base sm:text-lg flex items-center justify-center gap-2 transition-all cursor-pointer ${
             selectedTier === 'normal'
               ? 'bg-gradient-to-r from-sky-400 to-sky-600 text-white shadow-lg border border-white/40'
               : 'text-white/80 hover:text-white'
           }`}
         >
-          <Hourglass className="w-4 h-4 sm:w-5 sm:h-5 text-sky-100" />
+          <Hourglass className="w-5 h-5 sm:w-6 sm:h-6 text-sky-100" />
           <span>Normal</span>
         </button>
 
         <button
           onClick={() => onSelectTier('vip')}
-          className={`flex-1 py-3 px-5 rounded-full font-black text-sm sm:text-base flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 py-3 px-5 rounded-full font-black text-base sm:text-lg flex items-center justify-center gap-2 transition-all cursor-pointer ${
             selectedTier === 'vip'
               ? 'bg-gradient-to-r from-amber-400 to-amber-600 text-white shadow-lg border border-amber-200/50'
               : 'text-white/80 hover:text-white'
           }`}
         >
-          <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200" />
+          <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-amber-200" />
           <span>VIP</span>
         </button>
       </div>
