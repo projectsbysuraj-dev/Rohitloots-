@@ -54,7 +54,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activities, setActivities] = useState<ClaimActivity[]>(INITIAL_ACTIVITIES);
   const [telegramConfig, setTelegramConfig] = useState<TelegramConfig>(INITIAL_TELEGRAM_CONFIG);
   const [notifications, setNotifications] = useState<AppNotification[]>(INITIAL_NOTIFICATIONS);
-  const [adminPassword, setAdminPassword] = useState<string>('Rohitloots@123');
+  const [adminPassword, setAdminPassword] = useState<string>('adminrohit@123123');
   const [isLoadingFirebase, setIsLoadingFirebase] = useState<boolean>(true);
 
   const [currentUser, setCurrentUser] = useState<User | null>({
@@ -178,8 +178,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (snapshot.exists()) {
         setAdminPassword(snapshot.val());
       } else {
-        set(ref(db, 'adminSettings/password'), 'Rohitloots@123');
-        setAdminPassword('Rohitloots@123');
+        set(ref(db, 'adminSettings/password'), 'adminrohit@123123');
+        setAdminPassword('adminrohit@123123');
       }
     });
 
@@ -413,7 +413,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     set(ref(db, 'activities'), initialActObj);
     set(ref(db, 'telegramConfig'), INITIAL_TELEGRAM_CONFIG);
     set(ref(db, 'notifications'), initialNotifObj);
-    set(ref(db, 'adminSettings/password'), 'Rohitloots@123');
+    set(ref(db, 'adminSettings/password'), 'adminrohit@123123');
   };
 
   return (

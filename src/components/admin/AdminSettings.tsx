@@ -5,7 +5,7 @@ import { Settings, RefreshCw, Palette, ShieldCheck, CheckCircle2, KeyRound, Save
 export const AdminSettings: React.FC = () => {
   const { resetToDefaults, adminPassword, saveAdminPassword } = useApp();
   const [resetMessage, setResetMessage] = useState(false);
-  const [newPassword, setNewPassword] = useState(adminPassword || 'Rohitloots@123');
+  const [newPassword, setNewPassword] = useState(adminPassword || 'adminrohit@123123');
   const [passwordSaved, setPasswordSaved] = useState(false);
 
   const handleSavePassword = (e: React.FormEvent) => {
@@ -20,7 +20,7 @@ export const AdminSettings: React.FC = () => {
   const handleReset = () => {
     if (confirm('Are you sure you want to reset all applications, users, and settings to original factory defaults in Firebase?')) {
       resetToDefaults();
-      setNewPassword('Rohitloots@123');
+      setNewPassword('adminrohit@123123');
       setResetMessage(true);
       setTimeout(() => setResetMessage(false), 3000);
     }

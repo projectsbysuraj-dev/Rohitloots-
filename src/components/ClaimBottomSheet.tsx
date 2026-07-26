@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { cleanImageUrl, FALLBACK_APP_LOGO, formatDisplayAmount } from '../utils/imageUtils';
-import { X, Gift, ExternalLink, CheckCircle2, ShieldCheck, FileText, ChevronRight, Award } from 'lucide-react';
+import { X, Gift, ExternalLink, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
 
@@ -89,86 +89,17 @@ export const ClaimBottomSheet: React.FC = () => {
           </div>
 
           {/* Sheet Body Scrollable Content */}
-          <div className="p-4 sm:p-6 space-y-6 overflow-y-auto flex-1 text-slate-800">
-            {/* Quick Meta Stats Row */}
-            <div className="grid grid-cols-2 gap-2 p-3 bg-slate-50 rounded-2xl text-center border border-slate-100">
-              <div>
-                <span className="block text-[10px] text-slate-400 font-medium">Rating</span>
-                <span className="text-xs font-bold text-slate-800 flex items-center justify-center gap-1 mt-0.5">
-                  <Award className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  {selectedAppForClaim.rating || 4.8}/5
-                </span>
-              </div>
-              <div className="border-l border-slate-200">
-                <span className="block text-[10px] text-slate-400 font-medium">Total Claims</span>
-                <span className="text-xs font-bold text-sky-600 mt-0.5 block">
-                  {selectedAppForClaim.totalClaims.toLocaleString()}+ Users
-                </span>
-              </div>
-            </div>
-
+          <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 text-slate-800">
             {/* App Description */}
-            <div>
-              <h3 className="text-sm font-bold text-slate-900 mb-1.5 flex items-center gap-1.5">
+            <div className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-100">
+              <h3 className="text-sm font-bold text-slate-900 mb-2 flex items-center gap-1.5">
                 <FileText className="w-4 h-4 text-[#FF8C00]" />
-                About {selectedAppForClaim.name}
+                Description
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                 {selectedAppForClaim.fullDescription || selectedAppForClaim.shortDescription}
               </p>
             </div>
-
-            {/* Eligibility */}
-            <div className="p-3.5 bg-sky-50/60 rounded-2xl border border-sky-100">
-              <h4 className="text-xs font-bold text-sky-900 mb-1 flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#0A66C2]" />
-                Eligibility Criteria
-              </h4>
-              <p className="text-xs text-sky-800 font-medium">
-                {selectedAppForClaim.eligibility || 'Open for all new registrations.'}
-              </p>
-            </div>
-
-            {/* How it Works Step-by-Step */}
-            <div>
-              <h3 className="text-sm font-bold text-slate-900 mb-3">
-                How to Claim Reward (4 Simple Steps)
-              </h3>
-              <div className="space-y-2.5">
-                {(selectedAppForClaim.howItWorks || [
-                  'Click "Open Website" button below.',
-                  'Register using your mobile number.',
-                  'Complete initial account setup & KYC.',
-                  'Receive your ₹' + selectedAppForClaim.rewardAmount + ' reward directly in your bank!'
-                ]).map((step, idx) => (
-                  <div key={idx} className="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
-                    <span className="w-6 h-6 rounded-full bg-[#FF8C00] text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                      {idx + 1}
-                    </span>
-                    <p className="text-xs text-slate-700 font-medium leading-relaxed pt-0.5">
-                      {step}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Requirements */}
-            {selectedAppForClaim.requirements && selectedAppForClaim.requirements.length > 0 && (
-              <div>
-                <h3 className="text-sm font-bold text-slate-900 mb-2">
-                  Prerequisites / Requirements
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {selectedAppForClaim.requirements.map((req, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
-                      <span>{req}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Sticky Footer Open Website Button */}

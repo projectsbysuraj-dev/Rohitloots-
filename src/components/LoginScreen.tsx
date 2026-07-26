@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Lock, Mail, ArrowRight, ShieldCheck, UserCheck, Sparkles, CheckSquare, Square } from 'lucide-react';
 import { motion } from 'motion/react';
+import logoImg from '../assets/images/rohit_tricks_logo_1785071369631.jpg';
 
 export const LoginScreen: React.FC = () => {
   const { login, register } = useApp();
@@ -70,10 +71,13 @@ export const LoginScreen: React.FC = () => {
         <div className="text-center mb-6">
           {/* Top Left/Center Logo */}
           <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#0284c7] p-0.5 shadow-lg shadow-orange-500/20">
-              <div className="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
-                <span className="text-white font-extrabold text-xl tracking-wider font-mono">RT</span>
-              </div>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#0284c7] p-0.5 shadow-lg shadow-orange-500/20 overflow-hidden">
+              <img 
+                src={logoImg} 
+                alt="Rohit Tricks Logo" 
+                className="w-full h-full object-cover rounded-[14px]"
+                referrerPolicy="no-referrer"
+              />
             </div>
           </div>
 

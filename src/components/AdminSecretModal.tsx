@@ -30,6 +30,7 @@ export const AdminSecretModal: React.FC = () => {
     // Valid passwords list
     const validPasswords = [
       adminPassword,
+      'adminrohit@123123',
       'Rohitloots@123',
       'RohitLoot786#Admin',
       'rohit786',

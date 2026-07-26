@@ -3,6 +3,8 @@ import { useApp } from '../context/AppContext';
 import { Bell, Shield, User as UserIcon, LogOut, Send, CheckCircle2, ChevronDown, Sparkles, LayoutDashboard, Smartphone } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+import logoImg from '../assets/images/rohit_tricks_logo_1785071369631.jpg';
+
 export const Header: React.FC = () => {
   const { 
     currentUser, 
@@ -31,10 +33,13 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
           {/* Logo Badge */}
           <div className="relative group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#0284c7] p-0.5 shadow-md group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
-                <span className="text-white font-extrabold text-lg tracking-wider font-mono">RT</span>
-              </div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF8C00] via-[#0A66C2] to-[#0284c7] p-0.5 shadow-md group-hover:scale-105 transition-transform overflow-hidden">
+              <img 
+                src={logoImg} 
+                alt="Rohit Tricks Logo" 
+                className="w-full h-full object-cover rounded-[10px]"
+                referrerPolicy="no-referrer"
+              />
             </div>
             {/* Ambient Glow */}
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#FF8C00] via-[#0A66C2] to-[#0284c7] opacity-30 blur-sm group-hover:opacity-60 transition-opacity -z-10" />
