@@ -111,7 +111,6 @@ function AppContent() {
                 className="w-16 h-16 rounded-full object-cover ring-4 ring-sky-500/30 mx-auto mb-2"
               />
               <h2 className="text-xl font-extrabold text-slate-900">{currentUser?.name}</h2>
-              <p className="text-xs text-slate-500 font-semibold">{currentUser?.email}</p>
             </div>
           </div>
         )}
